@@ -354,6 +354,7 @@ Make sure these are set in your hosting environment:
 - `AUTH_USERS` — legacy fallback only: per-user credentials (`name:pass,name2:pass2`) when `FP_MCP_INTERNAL_KEY` is unset
 - `DATABASE_URL` — Postgres connection (usage events + tool outputs + leads cache)
 - `OPENROUTER_API` — OpenRouter key for deck/proposal generation
+- `OPENROUTER_API_KEY` — server-only OpenRouter key for the on-demand GSC traffic summary (`/api/dashboard/gsc-summary`, `deepseek/deepseek-v4.1-flash`); the summary does not run until Generate Summary is clicked
 - `AHREFS_API_KEY` — competitor data for the deck pipeline
 - `HUBSPOT_SERVICE_KEY` — HubSpot private app token for recent-leads import
 - `BROWSERLESS_URL` — self-hosted browserless base URL (e.g. `https://browserless.firstpage.com.hk/`); used by the onsite-audit crawler (`/content`), PDF export (`/pdf`), page screenshots (`/screenshot`) and render-diff (`/content`). `/lighthouse` is NOT available on this build.

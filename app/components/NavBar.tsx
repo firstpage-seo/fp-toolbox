@@ -21,9 +21,6 @@ interface MeResponse {
 
 const NAV_LINKS = [
   { href: "/", label: "Overview" },
-  { href: "/toolbox", label: "Toolbox" },
-  { href: "/gateway", label: "Gateway" },
-  { href: "/leads", label: "Leads", adminOnly: true },
 ];
 
 /** Avatar initials: first two first-letters of the username (local part), uppercased. */
@@ -61,7 +58,7 @@ export default function NavBar() {
   }, [mounted]);
 
   const isLoggedIn = me.loggedIn;
-  const visibleLinks = NAV_LINKS.filter((l) => !l.adminOnly || me.isAdmin);
+  const visibleLinks = NAV_LINKS;
 
   const linkClass = (href: string) =>
     `px-3.5 py-2 rounded-lg text-[13.5px] font-semibold transition-colors ${
@@ -119,8 +116,8 @@ export default function NavBar() {
         </>
       ) : (
         <>
-          <Link href="/toolbox" className={linkClass("/toolbox")}>
-            Toolbox
+          <Link href="/" className={linkClass("/")}>
+            Overview
           </Link>
           <Link
             href="/login"

@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import MetricCard from "./MetricCard";
 import UnconfiguredNotice from "./UnconfiguredNotice";
-import SectionHeader from "./SectionHeader";
-import AiPlansPanel from "./AiPlansPanel";
 import { PsiKpi, PsiDetail } from "./PsiPanel";
 import CardHead from "./CardHead";
 import StatMini from "./StatMini";
@@ -11,10 +9,12 @@ import Legend from "./Legend";
 import HBarRow from "./HBarRow";
 import TrafficTrendChart from "./TrafficTrendChart";
 import SearchPerformanceTable from "./SearchPerformanceTable";
+import TopLandingPagesTable from "./TopLandingPagesTable";
+import GscSummary from "./GscSummary";
 import Card from "@/components/ui/Card";
 import type { WebsiteData } from "@/lib/dashboard";
+import SourceFilter from "./SourceFilter";
 import type { UptimeStats } from "@/lib/uptime";
-import type { Insight } from "@/lib/insights";
 
 /** HK-local time for the uptime panel, e.g. "10/08 14:35". */
 function fmtTime(d: Date): string {
@@ -42,28 +42,17 @@ function Chip({ dot, dotColor, children }: { dot?: boolean; dotColor?: string; c
 interface WebsiteSectionProps {
   d: WebsiteData;
   uptime: UptimeStats;
-  insights: Insight[];
 }
 
 /** Website performance half of the dashboard — design-ref website zone. */
-export default function WebsiteSection({ d, uptime, insights }: WebsiteSectionProps) {
-  const ga4Trend = d.ga4.trend;
-  const ai = d.aiVisibility.result;
-  const keywords = d.ahrefs.result?.keywords ?? [];
-  const maxVolume = keywords.length ? Math.max(...keywords.map((k) => k.volume)) : 0;
-
+export default function WebsiteSection({ d, uptime }: WebsiteSectionProps) {
   return (
     <>
-      <SectionHeader
-        id="website"
-        accent="website"
-        title="Website Performance"
-        tag={d.targets.domain}
-        insights={insights}
-      />
-
-      <AiPlansPanel days={d.rangeDays} zone="website" />
-
+      <div className="pt-9 flex items-center gap-3.5">
+        <span className="w-1 h-6 rounded-sm bg-fp-500" aria-hidden />
+        <h2 className="text-2xl font-extrabold text-navy">Website Performance</h2>
+        <span className="text-xs font-bold text-muted">{d.targets.domain}</span>
+      </div>
       {/* Site status — uptime checker */}
       <Card className="mt-6">
         <CardHead title="Site status" src="uptime checks" />
@@ -112,34 +101,55 @@ export default function WebsiteSection({ d, uptime, insights }: WebsiteSectionPr
         ) : null}
       </Card>
 
-      {/* KPI row */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    </>
+  );
+}
+
+/** Organic search and site analytics from GA4, GSC, PSI, and Ahrefs. */
+export function OrganicTrafficSection({ d, finalizedDate }: { d: WebsiteData; finalizedDate: string }) {
+  const ga4Trend = d.ga4.trend;
+  const ai = d.aiVisibility.result;
+  const keywords = d.ahrefs.result?.keywords ?? [];
+  const maxVolume = keywords.length ? Math.max(...keywords.map((k) => k.volume)) : 0;
+  const formatDate = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+
+  return (
+    <>
+      <div className="pt-9 flex items-center gap-3.5">
+        <span className="w-1 h-6 rounded-sm bg-fp-500" aria-hidden />
+        <h2 className="text-2xl font-extrabold text-navy">Organic Traffic Performance</h2>
+        <span className="text-xs font-bold text-muted">{d.targets.domain}</span>
+      </div>
+      <div className="mt-3 space-y-1 text-sm text-muted">
+        <p>
+          <span className="font-bold text-navy">Selected period:</span>{" "}
+          <time dateTime={d.dateRange.startDate}>{formatDate(d.dateRange.startDate)}</time> to{" "}
+          <time dateTime={d.dateRange.endDate}>{formatDate(d.dateRange.endDate)}</time>
+          {` · ${d.rangeDays} calendar ${d.rangeDays === 1 ? "day" : "days"}, including both dates`}
+        </p>
+        <p>
+          <span className="font-bold text-navy">Comparison period:</span>{" "}
+          <time dateTime={d.comparisonRange.startDate}>{formatDate(d.comparisonRange.startDate)}</time> to{" "}
+          <time dateTime={d.comparisonRange.endDate}>{formatDate(d.comparisonRange.endDate)}</time>
+          {` · previous ${d.comparisonRange.days} calendar ${d.comparisonRange.days === 1 ? "day" : "days"}`}
+        </p>
+        <p className="text-xs">GA4 and GSC use these periods. PageSpeed and Ahrefs show current snapshots.</p>
+        <p className="font-semibold text-amber-700">GSC finalized data is available through {formatDate(finalizedDate)}. The 7d, 30d, and 90d presets end on this date so they include the full number of days.</p>
+      </div>
+
+      <SourceFilter panels={{
+        ga4: (<>
+      <div className="mt-6 max-w-sm">
         <MetricCard
           label="Active users"
           value={d.ga4.totals ? d.ga4.totals.activeUsers.toLocaleString() : "—"}
           sub={d.ga4.totals ? `GA4 · last ${d.rangeDays} days` : "GA4 not loaded"}
           delta={d.deltas.ga4Users}
-          deltaHint="vs prev 30d"
+          deltaHint="vs comparison period"
           spark={ga4Trend.map((t) => t.activeUsers)}
           sparkColor="#427fe0"
         />
-        <MetricCard
-          label="Organic clicks"
-          value={d.gsc.totals ? d.gsc.totals.clicks.toLocaleString() : "—"}
-          sub={d.gsc.totals ? "GSC · organic search" : "GSC not loaded"}
-          delta={d.deltas.gscClicks}
-          deltaHint="GSC"
-          spark={d.gsc.daily.map((p) => p.clicks)}
-          sparkColor="#427fe0"
-        />
-        <PsiKpi days={d.rangeDays} />
-        <MetricCard
-          label="Keywords tracked"
-          value={d.ahrefs.result ? d.ahrefs.result.keywords.length : "—"}
-          sub={d.ahrefs.configured ? `${d.targets.domain} (HK)` : "needs AHREFS_API_KEY"}
-        />
       </div>
-
       {/* Site analytics — GA4 */}
       <Card className="mt-8">
         <CardHead title="Site analytics" src={`GA4 · ${d.ga4.propertyId}`} />
@@ -164,8 +174,8 @@ export default function WebsiteSection({ d, uptime, insights }: WebsiteSectionPr
             }
             right={
               <>
-                <StatMini label="Active users (30d)" value={d.ga4.totals.activeUsers.toLocaleString()} />
-                <StatMini label="Sessions (30d)" value={d.ga4.totals.sessions.toLocaleString()} />
+                <StatMini label={`Active users (${d.rangeDays}d)`} value={d.ga4.totals.activeUsers.toLocaleString()} />
+                <StatMini label={`Sessions (${d.rangeDays}d)`} value={d.ga4.totals.sessions.toLocaleString()} />
                 <StatMini
                   label="Avg users / day"
                   value={ga4Trend.length ? Math.round(d.ga4.totals.activeUsers / ga4Trend.length).toLocaleString() : "—"}
@@ -188,39 +198,68 @@ export default function WebsiteSection({ d, uptime, insights }: WebsiteSectionPr
         )}
       </Card>
 
-      {/* Search performance — GSC */}
+      </>),
+        gsc: (<>
+      <GscSummary key={`${d.dateRange.startDate}:${d.dateRange.endDate}`} startDate={d.dateRange.startDate} endDate={d.dateRange.endDate} />
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <MetricCard
+          label="Impressions"
+          value={d.gsc.totals ? d.gsc.totals.impressions.toLocaleString() : "—"}
+          sub={d.gsc.totals ? "GSC · organic search" : "GSC not loaded"}
+          delta={d.deltas.gscImpressions}
+          deltaHint="vs comparison period"
+        />
+        <MetricCard
+          label="Clicks"
+          value={d.gsc.totals ? d.gsc.totals.clicks.toLocaleString() : "—"}
+          sub={d.gsc.totals ? "GSC · organic search" : "GSC not loaded"}
+          delta={d.deltas.gscClicks}
+          deltaHint="vs comparison period"
+          spark={d.gsc.daily.map((p) => p.clicks)}
+          sparkColor="#427fe0"
+        />
+        <MetricCard
+          label="CTR"
+          value={d.gsc.totals ? `${(d.gsc.totals.ctr * 100).toFixed(1)}%` : "—"}
+          sub={d.gsc.totals ? "GSC · organic search" : "GSC not loaded"}
+          delta={d.deltas.gscCtr}
+          deltaSuffix=" pp"
+          deltaHint="vs comparison period"
+        />
+        <MetricCard
+          label="Average position"
+          value={d.gsc.totals ? d.gsc.totals.position.toFixed(1) : "—"}
+          sub={d.gsc.totals ? "Lower is better" : "GSC not loaded"}
+          delta={d.deltas.gscPosition}
+          deltaInvert
+          deltaHint="vs comparison period"
+        />
+      </div>
+      {/* Landing pages — GSC */}
       <Card className="mt-8">
-        <CardHead title="Search performance" src={`GSC · ${d.gsc.siteUrl}`} />
+        <CardHead title="Top landing pages by clicks" src={`GSC · ${d.gsc.siteUrl}`} />
+        <TopLandingPagesTable pages={d.gsc.landingPages} error={d.gsc.pagesError} />
+      </Card>
+
+      {/* Search queries — GSC */}
+      <Card className="mt-8">
+        <CardHead title="Top queries" src={`GSC · ${d.gsc.siteUrl}`} />
         {d.gsc.error ? (
           <p className="text-sm text-rose-600">Couldn&apos;t load GSC: {d.gsc.error}</p>
-        ) : d.gsc.totals ? (
-          <TwoCol
-            left={<SearchPerformanceTable queries={d.gsc.queries.slice(0, 8)} />}
-            right={
-              <>
-                <StatMini label="Total impressions" value={d.gsc.totals.impressions.toLocaleString()} />
-                <StatMini label="Total clicks" value={d.gsc.totals.clicks.toLocaleString()} />
-                <StatMini label="Avg CTR" value={`${(d.gsc.totals.ctr * 100).toFixed(1)}%`} />
-                <StatMini
-                  label="Avg position"
-                  value={
-                    <>
-                      {d.gsc.totals.position.toFixed(1)}{" "}
-                      <small className="text-[12px] font-normal text-muted">lower is better</small>
-                    </>
-                  }
-                />
-              </>
-            }
-          />
         ) : (
-          <p className="text-sm text-muted">Loading GSC…</p>
+          <SearchPerformanceTable queries={d.gsc.queries.slice(0, 8)} />
         )}
       </Card>
 
-      {/* Site performance — PSI (client-filled; never blocks hydration) */}
-      <PsiDetail days={d.rangeDays} />
-
+      </>),
+        ahrefs: (<>
+      <div className="mt-6 max-w-sm">
+        <MetricCard
+          label="Keywords tracked"
+          value={d.ahrefs.result ? d.ahrefs.result.keywords.length : "—"}
+          sub={d.ahrefs.configured ? `${d.targets.domain} (HK)` : "needs AHREFS_API_KEY"}
+        />
+      </div>
       {/* Search presence — Ahrefs keywords + AI visibility */}
       <Card className="mt-8">
         <CardHead title="Search presence" src="Ahrefs" />
@@ -275,6 +314,16 @@ export default function WebsiteSection({ d, uptime, insights }: WebsiteSectionPr
           />
         )}
       </Card>
+      </>),
+        pagespeed: (<>
+      <div className="mt-6 max-w-sm">
+        <PsiKpi days={d.rangeDays} />
+      </div>
+      {/* Site performance — PSI (client-filled; never blocks hydration) */}
+      <PsiDetail days={d.rangeDays} />
+
+      </>),
+      }} />
     </>
   );
 }
