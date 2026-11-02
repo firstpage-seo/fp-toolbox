@@ -52,10 +52,10 @@ export default function LoginForm({ registerUrl }: { registerUrl: string }) {
           FP
         </div>
         <h1 className="text-[26px] font-extrabold text-navy leading-tight">
-          System View Login
+          Organic Performance Login
         </h1>
         <p className="text-muted text-sm mt-2 mb-7">
-          Sign in to open the full dashboard, toolbox and reporting suite.
+          Sign in to view the FirstPage HK Organic Performance report.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -97,8 +97,7 @@ export default function LoginForm({ registerUrl }: { registerUrl: string }) {
         </form>
 
         <div className="mt-4 px-3.5 py-3 rounded-[10px] bg-fp-500/10 border border-dashed border-fp-500/40 text-[12.5px] leading-relaxed text-fp-700">
-          Internal system view. If you don&apos;t have credentials yet, ask the
-          AI &amp; Automation team.
+          Internal report. If you don&apos;t have credentials yet, ask your administrator.
         </div>
 
         <a
@@ -110,24 +109,6 @@ export default function LoginForm({ registerUrl }: { registerUrl: string }) {
           No account? Register at the MCP admin panel →
         </a>
 
-        <a
-          href="/toolbox"
-          className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-fp-600"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-4 h-4"
-            aria-hidden="true"
-          >
-            <path d="M19 12H5M11 18l-6-6 6-6" />
-          </svg>
-          Back to Toolbox View
-        </a>
       </div>
     </div>
   );

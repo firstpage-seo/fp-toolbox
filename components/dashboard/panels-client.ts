@@ -2,23 +2,13 @@
 
 import { useEffect, useState } from "react";
 import type { WebsitePsi } from "@/lib/dashboard";
-import type { AiPlans } from "@/lib/ai-plans";
 
 export interface DashboardPanels {
   psi: WebsitePsi;
 }
 
-export interface DashboardPlans {
-  plans: AiPlans | null;
-}
-
-// PSI and AI plans are separate endpoints: psi_audit is 6h-memoized and
-// answers in ms, while a fresh plans generation takes up to ~90s — a shared
-// request would stall the PSI card behind the LLM. Each endpoint has its own
-// in-flight fetch, shared by every card on the page (one request per window).
-
+// Share one in-flight PageSpeed request across both visible cards.
 const inflightPsi = new Map<number, Promise<DashboardPanels>>();
-const inflightPlans = new Map<number, Promise<DashboardPlans>>();
 
 function fetchPanels(days: number): Promise<DashboardPanels> {
   const existing = inflightPsi.get(days);
@@ -31,20 +21,6 @@ function fetchPanels(days: number): Promise<DashboardPanels> {
     })
     .finally(() => inflightPsi.delete(days));
   inflightPsi.set(days, p);
-  return p;
-}
-
-function fetchPlans(days: number): Promise<DashboardPlans> {
-  const existing = inflightPlans.get(days);
-  if (existing) return existing;
-  const p = fetch(`/api/dashboard/plans?days=${days}`)
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d: DashboardPlans | null) => {
-      if (!d) throw new Error("dashboard plans unavailable");
-      return d;
-    })
-    .finally(() => inflightPlans.delete(days));
-  inflightPlans.set(days, p);
   return p;
 }
 
@@ -73,9 +49,4 @@ function useFetchedData<T>(days: number, fetcher: (days: number) => Promise<T>):
  */
 export function usePanels(days: number): DashboardPanels | null {
   return useFetchedData(days, fetchPanels);
-}
-
-/** AI-plan cards — same pattern as usePanels, against /api/dashboard/plans. */
-export function usePlans(days: number): DashboardPlans | null {
-  return useFetchedData(days, fetchPlans);
 }

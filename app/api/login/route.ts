@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     path: "/",
   });
   // Shared mcp session cookie: only when a cross-subdomain domain is configured
-  // and mcp issued a session_token, so toolbox + mcp share one login.
+  // and mcp issued a session_token, so this report and mcp share one login.
   //
   // Never written over a live session for the same user. This token is minted
   // by mcp with a short (8h) lifetime, while the portal's own sign-in lasts 30
