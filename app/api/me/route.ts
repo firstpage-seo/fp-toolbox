@@ -11,5 +11,6 @@ export async function GET() {
   return NextResponse.json({
     loggedIn: Boolean(user),
     username: user?.email ?? null,
+    isAdmin: user?.isAdmin ?? false,
   });
 }

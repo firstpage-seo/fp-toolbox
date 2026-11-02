@@ -1,0 +1,32 @@
+# Local dev Postgres for fp-toolbox.
+# The app connects via DATABASE_URL (default: postgres://fp:fp@localhost:5432/fp_toolbox).
+# db/init.sql auto-runs on first start to create the three tables.
+#
+#   docker compose up -d        # start
+#   docker compose down         # stop (keeps data volume)
+#   docker compose down -v      # stop + wipe data
+
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: fp-toolbox-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fp
+      POSTGRES_PASSWORD: fp
+      POSTGRES_DB: fp_toolbox
+    ports:
+      - "5432:5432"
+    volumes:
+      # Postgres 18+ stores data in /var/lib/postgresql/<major>/docker,
+      # so mount the parent dir (not .../data) to stay upgrade-compatible.
+      - fp-db-data:/var/lib/postgresql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fp -d fp_toolbox"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  fp-db-data:

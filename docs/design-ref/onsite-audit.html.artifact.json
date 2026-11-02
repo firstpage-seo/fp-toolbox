@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "onsite-audit.html",
+  "entry": "onsite-audit.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-08-10T23:08:01.394Z",
+  "updatedAt": "2026-08-10T23:08:01.394Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

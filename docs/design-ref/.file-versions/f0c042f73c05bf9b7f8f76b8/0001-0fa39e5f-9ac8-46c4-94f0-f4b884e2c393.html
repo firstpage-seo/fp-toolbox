@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onsite SEO Audit — FirstPage HK Toolbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+  --radius:14px;
+  --ok:oklch(0.55 0.14 152);
+  --bad:oklch(0.58 0.21 26);
+  --warn:oklch(0.62 0.15 70);
+  --ok-bg:oklch(0.55 0.14 152 / 0.11);
+  --bad-bg:oklch(0.58 0.21 26 / 0.10);
+  --warn-bg:oklch(0.62 0.15 70 / 0.12);
+  --muted-bg:oklch(0.45 0 0 / 0.08);
+  --nua-bg:oklch(0.62 0.16 250 / 0.11);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.15;color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.topbar{background:var(--navy);color:#fff;font-size:12px;letter-spacing:0.07em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:7px;padding-bottom:7px}
+.topbar .regions{display:flex;gap:14px;opacity:.7}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display)}
+.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.08em}
+.brand .name{font-size:15px;font-weight:800;letter-spacing:.07em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff}
+nav.main a.cta:hover{filter:brightness(1.05)}
+.pagehead{background:var(--grad-banner);color:#fff;padding:44px 0 52px}
+.pagehead .wrap{position:relative;z-index:1}
+.eyebrow{display:inline-flex;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:oklch(1 0 0 / 0.14);border:1px solid oklch(1 0 0 / 0.22);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.pagehead h1{color:#fff;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-0.02em;max-width:24ch}
+.pagehead p{color:oklch(0.93 0.02 250);font-size:15.5px;margin-top:12px;max-width:62ch}
+.pagehead .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pagehead .meta span{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:oklch(1 0 0 / 0.10);border:1px solid oklch(1 0 0 / 0.18);color:oklch(0.96 0.01 250);padding:5px 11px;border-radius:999px}
+main{padding:0 0 60px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px}
+.card + .card{margin-top:16px}
+/* run card */
+.run-card{margin-top:-26px;position:relative;z-index:2}
+.run-card .lbl{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.run-row{display:flex;gap:12px}
+.run-row input{flex:1;min-width:0;border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:15px;font-family:var(--font-body);color:var(--navy);background:#fff;transition:border-color .15s}
+.run-row input::placeholder{color:oklch(0.5 0 0 / 0.6)}
+.run-row input:focus{outline:none;border-color:var(--blue)}
+.run-row .go{display:inline-flex;align-items:center;gap:9px;background:var(--grad-cta);color:#fff;border:0;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:700;font-family:var(--font-display);cursor:pointer;box-shadow:var(--shadow-md);transition:filter .15s,transform .1s}
+.run-row .go:hover{filter:brightness(1.05)}
+.run-row .go:active{transform:translateY(1px)}
+.run-row .go:disabled{opacity:.45;cursor:default;filter:none}
+.run-row .go svg{width:17px;height:17px;stroke:currentColor}
+.run-hint{font-size:12.5px;color:var(--muted);margin-top:12px}
+/* progress */
+.progress-card{display:none}
+.progress-card.show{display:block}
+.progress-card .stage{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.progress-card .stage b{font-family:var(--font-display);font-size:16px;color:var(--navy);letter-spacing:-0.01em}
+.progress-card .stage span{font-size:12.5px;color:var(--muted)}
+.progress-card .msg{font-size:13.5px;color:var(--muted);margin-top:4px}
+.progress-card .pages{font-size:13px;font-weight:700;color:var(--blue-600);margin-top:10px;font-variant-numeric:tabular-nums}
+.track{height:8px;border-radius:999px;background:var(--surface);margin-top:14px;overflow:hidden}
+.track .fill{height:100%;width:0;border-radius:999px;background:var(--grad-banner);transition:width .45s ease}
+/* error */
+.err{display:none;background:var(--bad-bg);border:1px solid oklch(0.58 0.21 26 / 0.25);color:var(--bad);border-radius:10px;padding:13px 16px;font-size:14px;font-weight:600;margin-top:16px}
+.err.show{display:block}
+/* result */
+#result{display:none;margin-top:16px}
+#result.show{display:block}
+.summary-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px}
+.summary-head h2{font-size:19px;font-weight:800}
+.summary-head .dom{font-family:var(--font-display);font-weight:800;color:var(--navy);font-size:19px}
+.summary-head .when{font-size:12.5px;color:var(--muted);margin-top:2px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:#fff;color:var(--navy);border-radius:9px;padding:9px 14px;font-size:13px;font-weight:700;font-family:var(--font-display);cursor:pointer;transition:background .15s,border-color .15s}
+.acts button:hover{background:var(--surface);border-color:oklch(0.8 0 0)}
+.acts button svg{width:15px;height:15px;stroke:currentColor}
+.acts a.rerun{display:inline-flex;align-items:center;gap:7px;color:var(--blue-600);font-size:13px;font-weight:700;padding:9px 6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
+.stat{background:var(--surface);border-radius:10px;padding:14px 16px}
+.stat .v{font-family:var(--font-display);font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .k{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.stat.t .v{color:var(--navy)}
+.stat.p .v{color:var(--ok)}
+.stat.f .v{color:var(--bad)}
+.stat.r .v{color:var(--warn)}
+.stat.m .v{color:var(--muted)}
+.summary-ai{margin-top:20px;border-top:1px solid var(--border);padding-top:18px}
+.summary-ai .lab{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.summary-ai p{font-size:14px;line-height:1.6;max-width:75ch;color:oklch(0.3 0.05 266)}
+/* manual */
+.manual-head{display:flex;align-items:baseline;gap:10px}
+.manual-head h3{font-size:17px;font-weight:800}
+.manual-head .n{font-size:12px;font-weight:700;color:var(--muted)}
+.manual-note{font-size:12.5px;color:var(--muted);margin-top:4px}
+.manual-list{margin-top:14px}
+.mrow{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--border)}
+.mrow:first-child{border-top:0}
+.mrow input{width:17px;height:17px;margin-top:2px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
+.mrow .mid{flex:1;min-width:0}
+.mrow .mid b{font-size:13.5px;font-weight:700;color:var(--navy)}
+.mrow .mid .instr{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.mrow .m-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--muted);padding-top:2px;flex-shrink:0}
+.mrow.done{opacity:.45}
+.mrow.done .mid b{text-decoration:line-through}
+/* filters + sections */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 4px}
+.filters button{border:1px solid var(--border);background:#fff;color:var(--muted);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-display);cursor:pointer;transition:all .15s}
+.filters button:hover{border-color:oklch(0.75 0 0)}
+.filters button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.filters .spacer{flex:1}
+.kind-legend{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:center}
+.sections{margin-top:14px}
+.sec{border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-sm);margin-bottom:14px;overflow:hidden}
+.sec > .sec-head{display:flex;align-items:center;gap:12px;padding:15px 20px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border)}
+.sec > .sec-head h3{font-size:15.5px;font-weight:800;color:var(--navy)}
+.sec > .sec-head .cnt{font-size:12px;font-weight:700;color:var(--muted)}
+.sec > .sec-head .mini{display:flex;gap:10px;margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+.sec > .sec-head .mini span b{font-variant-numeric:tabular-nums}
+.sec > .sec-head .chev{margin-left:6px;color:var(--muted);transition:transform .18s;flex-shrink:0}
+.sec.collapsed > .sec-head .chev{transform:rotate(-90deg)}
+.sec.collapsed > .sec-body{display:none}
+.sec-body{padding:6px 20px 10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-top:1px solid oklch(0.91 0 0 / 0.6)}
+.check:first-child{border-top:0}
+.check .c-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--muted);padding-top:2px;flex-shrink:0;min-width:34px}
+.check .c-body{flex:1;min-width:0}
+.check .c-item{font-size:13.5px;color:var(--navy)}
+.check .c-ev{font-size:12px;color:var(--muted);margin-top:2px}
+.check .c-ev b{font-weight:700;color:oklch(0.4 0.04 266)}
+.badge{flex-shrink:0;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-top:1px}
+.badge.pass{background:var(--ok-bg);color:var(--ok)}
+.badge.fail{background:var(--bad-bg);color:var(--bad)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.manual{background:var(--muted-bg);color:oklch(0.45 0 0)}
+.badge.n-a{background:var(--nua-bg);color:var(--blue-600)}
+.kind-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:7px;vertical-align:1px;background:var(--surface);color:var(--muted)}
+.check.hidden{display:none}
+.sec.hidden{display:none}
+.no-match{display:none;text-align:center;padding:26px 0;color:var(--muted);font-size:13.5px}
+.no-match.show{display:block}
+/* history */
+.history-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.history-head h3{font-size:17px;font-weight:800}
+.history-head .n{font-size:12px;font-weight:700;color:var(--muted)}
+.hrow{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--border)}
+.hrow:first-of-type{border-top:0}
+.hrow .h-main{flex:1;min-width:0}
+.hrow .h-main b{font-size:14px;font-weight:700;color:var(--navy);word-break:break-all}
+.hrow .h-main .h-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.hrow .h-sum{text-align:right;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);flex-shrink:0}
+.hrow .h-sum .f{color:var(--bad)}.hrow .h-sum .r{color:var(--warn)}.hrow .h-sum .m{color:var(--muted)}
+.hrow .view{border:1px solid var(--border);background:#fff;color:var(--navy);border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:700;font-family:var(--font-display);cursor:pointer;flex-shrink:0;transition:background .15s}
+.hrow .view:hover{background:var(--surface)}
+.hrow .view.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* misc */
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:28px 0;font-size:13px;margin-top:44px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer strong{color:#fff}
+@media(max-width:760px){
+  .run-row{flex-direction:column}
+  .run-row .go{justify-content:center}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .summary-head .acts{width:100%}
+  .check{gap:10px}
+  .check .c-ev{margin-left:0}
+  .hrow .h-sum{display:none}
+  .sec > .sec-head .mini{display:none}
+}
+@media(max-width:640px){
+  .topbar .regions{display:none}
+  nav.main a{padding:7px 9px;font-size:12.5px}
+  nav.main a:nth-child(n+5){display:none}
+  header.nav .wrap{gap:10px}
+  .brand .sub{display:none}
+  .card{padding:18px}
+}
+</style>
+</head>
+<body data-od-id="page-onsite-audit">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a href="dashboard.html">Overview</a>
+      <a class="on" href="toolbox.html">Toolbox</a>
+      <a href="usage.html">Usage</a>
+      <a href="admin.html">Lead Quality</a>
+      <a class="cta" href="login.html">Login</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pagehead" data-od-id="page-head">
+  <div class="wrap">
+    <span class="eyebrow">SEO Technical · Full-site audit</span>
+    <h1>Onsite SEO Audit</h1>
+    <p>Runs the full SEO Implementation Checklist against a site: crawl with browserless, on-page / GSC / GA4 / PSI / Ahrefs checks, and the manual steps flagged for a human.</p>
+    <div class="meta">
+      <span>162 checks</span>
+      <span>8 sections</span>
+      <span>Job-based</span>
+      <span>Owner: FirstPage Team</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="card run-card" data-od-id="run-card">
+      <div class="lbl">Target URL</div>
+      <div class="run-row">
+        <input id="url" type="url" placeholder="https://client-site.com" autocomplete="off" spellcheck="false">
+        <button class="go" id="run-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+          <span id="run-lbl">Run audit</span>
+        </button>
+      </div>
+      <div class="run-hint">The audit crawls the site, then checks on-page, Search Console, Analytics, PageSpeed and backlink signals. Manual steps are returned as a to-do list for the AM.</div>
+    </div>
+
+    <div class="card progress-card" id="progress-card" data-od-id="progress-card">
+      <div class="stage"><b id="stage-name">Queued</b><span id="stage-phase">JOB PHASE</span></div>
+      <div class="msg" id="stage-msg">Waiting for the job queue…</div>
+      <div class="pages" id="stage-pages"></div>
+      <div class="track" aria-hidden="true"><div class="fill" id="stage-fill"></div></div>
+    </div>
+
+    <div class="err" id="err"></div>
+
+    <div id="result" data-od-id="result-summary">
+
+      <div class="card" data-od-id="result-head">
+        <div class="summary-head">
+          <div>
+            <h2>Audit result</h2>
+            <div class="dom" id="res-domain"></div>
+            <div class="when" id="res-when"></div>
+          </div>
+          <div class="acts">
+            <button id="dl-md" title="Download report as Markdown"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>Report (.md)</button>
+            <button id="dl-json" title="Download raw JSON"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>JSON</button>
+            <a class="rerun" href="#" id="rerun">Run another audit</a>
+          </div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="summary-ai">
+          <div class="lab">Executive summary</div>
+          <p id="res-ai"></p>
+        </div>
+      </div>
+
+      <div class="card" data-od-id="result-manual">
+        <div class="manual-head"><h3>Manual actions needed</h3><span class="n" id="manual-n"></span></div>
+        <div class="manual-note">Items that need an AM, client access, or a separate task. Tick them off as they are handled.</div>
+        <div class="manual-list" id="manual-list"></div>
+      </div>
+
+      <div class="filters" data-od-id="result-filters" id="filters">
+        <button class="on" data-f="all">All</button>
+        <button data-f="fail">Fail</button>
+        <button data-f="warn">Review</button>
+        <button data-f="pass">Pass</button>
+        <button data-f="manual">Manual</button>
+        <span class="spacer"></span>
+        <span class="kind-legend">Auto · Semi-auto · Manual</span>
+      </div>
+
+      <div class="sections" id="sections" data-od-id="result-sections"></div>
+      <div class="no-match" id="no-match">No checks match this filter in the current view.</div>
+    </div>
+
+    <div class="card" data-od-id="history-card" id="history-card">
+      <div class="history-head"><h3>Previous runs</h3><span class="n" id="hist-n"></span></div>
+      <div id="hist-list"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer data-od-id="page-footer">
+  <div class="wrap">
+    <div><strong>FirstPage Hong Kong</strong><br>AI &amp; Automation Team · Led by Glass Chan</div>
+    <div><a href="dashboard.html" style="color:#fff">Dashboard</a> · <a href="usage.html" style="color:#fff">Usage</a></div>
+  </div>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   Onsite SEO Audit — real checklist from lib/onsite-audit/checklist.ts
+   Items: [id, text, kind, instruction?]  kind: auto | semi-auto | manual
+------------------------------------------------------------------- */
+const SECS=[
+{name:"Pre-Check",items:[
+["1.1","BENCHMARK REPORT IN SENTR","manual","No onsite begins until benchmark report is added by AM in Sentr."],
+["1.2","IS DOMAIN/COUNTRY/CMS/CONFIG suitable for achieving SEO goals?","manual","Check domain matches country (GMB + location) and CMS is editable."],
+["1.3","CMS","manual","Confirm which CMS the site runs."],
+["1.4","Domain Authority","auto"],
+["1.5","Number of Referring Domains","auto"],
+["1.6","Number of Indexed Pages","auto"],
+["1.7","Does the client need a separate Traffic Drop Investigation?","manual","AM please create separate task."],
+["2.1","All Google Logins: GSC, GTM + GA4","manual","Confirm client access to GSC, GTM and GA4."],
+["2.2","Install GA4","manual","support.google.com/analytics/answer/1008080"],
+["2.3","Install & Set up GSC","manual","support.google.com/webmasters/answer/34592"],
+["2.4","GA links to GSC","manual"],
+["2.5","GEO Targeting set up?","auto"],
+["2.6","CMS access","manual"],
+["2.7","Cpanel","manual"],
+["3.1","Files - All Files Backup","manual","Use FTP/SFTP to download all files/folders, upload to Google Drive. wordpress.org/plugins/updraftplus/"],
+["3.2","Database - All Database Backup","manual","Use phpMyAdmin to generate SQL, upload to Google Drive."],
+["4.1","Keyword research","semi-auto"],
+["4.2","Keyword allocation","manual","Define target pages and allocate a cluster of KWs (2-10 to each)."],
+["4.3","Does the client need a separate Keyword Ranking Drop Investigation?","manual","Refer to '4. Keyword Drop' tab. AM to create separate task."],
+["5.1","Can we add a new page?","manual"],
+["5.2","Can we add a new header menu item?","manual"],
+["5.3","Can we add a new submenu item?","manual"],
+["5.4","Can we add an Accordion menu without a design issue?","manual"],
+["5.5","Can we add SEO Title, Descriptions and H tags without a design issue?","manual"],
+["5.6","Can we add SEO Title, Descriptions and H tags without a structural issue in the code?","manual"],
+["5.7","Can we add a new category page?","manual"],
+["5.8","How do GTM code placements look? Placed under &lt;head&gt; and &lt;body&gt;?","auto"],
+["6.1","Does the site have a security plugin/firewall active? Up-to-date plugins?","manual","For WP - Wordfence etc, WIX/Shopify fine. Custom - use hosting firewall."],
+["6.2","Safe Browsing status","auto"],
+["6.3","Site malware / blacklist scan","auto"]
+]},
+{name:"Crawling",items:[
+["7.1","Keyword Cannibalization Check (GSC)","auto"],
+["7.2","Low Hanging Fruit Pages (GSC queries ranking 4-20)","auto"],
+["7.3","High impressions/positioning but low clicks? (fix titles/descriptions)","auto"],
+["7.4","URLs indexed that shouldn't be (e.g. tags pages)?","auto"],
+["7.5","URLs that should be indexed but aren't?","auto"],
+["7.6","Any outdated content?","auto"],
+["8.1","Site confirmed mobile friendly?","auto"],
+["8.2","Is all desktop content visible on mobile?","auto"],
+["8.3","Any mobile UX concerns?","auto"],
+["8.4","Is the site responsive?","auto"],
+["8.5","Does the site avoid interstitials on mobile?","auto"],
+["8.7","Mobile Issues in GSC?","auto"],
+["8.8","Does the client need a separate UX/UI audit?","manual"],
+["9.1","http vs https (Insecure Content Detected?)","auto"],
+["9.2","Mixed Content","auto"],
+["9.3","www vs non www","auto"],
+["10.1","Does a robots.txt document exist?","auto"],
+["10.2","Indexable sections being disallowed?","auto"],
+["10.3","Disallow blocks in place for URLs Google shouldn't crawl?","auto"],
+["10.4","Bot access to CSS and JS documents?","auto"],
+["10.5","Are the following disallowed: carts, thank-you, admin, duplicate content, account pages?","auto"],
+["10.6","Is the file named robots.txt (not ROBOTS.TXT)?","auto"],
+["10.7","Link in robots.txt to the sitemap?","auto"],
+["11.1","Does an XML sitemap(s) exist?","auto"],
+["11.2","Is the sitemap a dynamic sitemap?","auto"],
+["11.3","Are &lt;loc&gt; tags used and www/non-www accurate?","auto"],
+["11.4","Are lastmod tags being used?","auto"],
+["11.5","Blocked pages excluded from sitemap?","auto"],
+["11.6","Paginated URLs avoided in the sitemap?","auto"],
+["11.7","Non-indexable URLs removed from sitemap?","auto"],
+["11.8","E-commerce: product images in sitemap?","auto"],
+["11.9","XML sitemap submitted to GSC and error-free?","auto"],
+["12.1","Faceted navigation/filters checked (+ canonicalisation)?","auto"],
+["12.2","Search/thank-you/archive pages have noindex?","auto"],
+["12.3","Any sections accidentally noindexed?","auto"],
+["13.1","Canonical tags on every page (self-referencing)?","auto"],
+["13.2","Canonicals reference the correct version?","auto"],
+["13.3","Tracking/query strings point canonical to base URL?","auto"],
+["13.4","E-commerce: canonical to base product URL for variants?","auto"],
+["13.5","Internal search doesn't cause URL duplication?","auto"],
+["13.6","Blog categories/tags/archives not causing duplication?","auto"],
+["13.7","Is Google respecting the canonicals?","auto"],
+["14.1","On-page links to page 2 and onward?","auto"],
+["14.2","Both a 'View All' and paginated pages without correct canonical?","auto"],
+["14.3","rel=prev / rel=next being used?","auto"],
+["14.4","No page=1 in addition to root page?","auto"],
+["14.5","Caused duplication?","auto"],
+["14.6","Canonical refers to the page itself on paginated content?","auto"],
+["15.1","Multi-language/country?","auto"],
+["15.2","Parameter (?lang=) or ccTLD or others?","auto"],
+["15.3","Any hreflang issues? (missing self-ref, return links, non-canonical, wrong language, non-200)","auto"],
+["16.1","Does the client require a content gap?","manual","AM please create separate task."],
+["16.2","Does the client require a detailed product/service competitor analysis?","manual","AM please create separate task."],
+["16.3","Does the client require a competitor health score comparison (SEMrush)?","manual","AM please create separate task."]
+]},
+{name:"Content",items:[
+["17.1","Does each URL have a title? (excluding target pages)","auto"],
+["17.2","Is the site free of page title duplication?","auto"],
+["17.3","Are page titles using the 580px max width effectively?","auto"],
+["17.4","Are there multiple page titles?","auto"],
+["18.1","Does each URL have a description? (excluding target pages)","auto"],
+["18.2","Is the site free of meta description duplication?","auto"],
+["18.3","Are meta descriptions using the 155 char limit effectively?","auto"],
+["19.1","Do all pages contain a single, keyword-optimised H1?","auto"],
+["19.2","Are there H1 duplicates?","auto"],
+["19.3","Are there multiple H1 tags in a single page?","auto"],
+["20.1","Do images contain alt text?","auto"],
+["20.2","Oversized images","auto"],
+["21.1","Any duplicate content externally?","semi-auto"],
+["21.2","Any duplicate content internally?","auto"],
+["22.1","Review competitor content, titles, descriptions, headings (target pages)","semi-auto"],
+["22.2","Any thin / low content pages?","auto"],
+["22.3","Content that supports Personal & Conversational Search queries?","semi-auto"],
+["22.4","Will users understand the client's content?","semi-auto"],
+["22.5","Visual Aid analysis, does the client need it?","manual"],
+["22.6","Does the client have author bios and list credentials? Links to external sources for EEAT?","semi-auto"],
+["22.7","Does the client break down long-form content into digestible subheadings for passage indexing?","auto"],
+["22.8","Does the client have a summary in their blog post to increase featured snippet chances?","semi-auto"],
+["22.9","Table of contents exist?","auto"],
+["23.1","Is there JSON-LD for Organization: name,url,logo,sameAs?","auto"],
+["23.2","E-commerce: product, rating and review structured data correct?","auto"],
+["23.3","Is there breadcrumb schema?","auto"],
+["23.4","If internal search, has Sitelinks Search Box schema been added?","auto"],
+["23.5","Is there article / how-to / blog post / person schema?","auto"],
+["23.6","Does the client need to generate review schema?","manual","AM please create separate task."],
+["23.7","Is there FAQ schema? (Optional)","auto"],
+["23.8","Schema being read properly in GSC? (enhancements)","auto"],
+["24.1","Contextual links in homepage body copy?","auto"],
+["24.2","E-commerce: links from product pages to thematically suitable products?","auto"],
+["24.3","Breadcrumbs leveraged for hierarchical linking?","auto"],
+["24.4","Automated links from category to relevant sub-category pages?","auto"],
+["24.5","SEO footer links added to the site?","auto"],
+["24.6","Any internal links with multiple redirected versions (redirect chains)?","auto"],
+["24.7","Any orphan pages? / links not in &lt;a href&gt; format?","auto"],
+["24.8","Any broken internal links?","auto"],
+["24.9","Suggestion for internal linking (GSC high external/internal link pages)?","semi-auto"],
+["25.1","Is the navigation bar clear, organised, linking to important pages?","auto"],
+["25.2","Is Google Bot able to access significant pages?","auto"],
+["25.3","How many pages is Google crawling every day?","auto"],
+["25.4","Which URLs are wasting crawl budget?","auto"]
+]},
+{name:"Technical",items:[
+["26.1","Do URLs have a logical hierarchical folder structure with keywords?","auto"],
+["26.2","Clean URL - no excessive parameters?","auto"],
+["26.3","Separator: use - instead of _?","auto"],
+["26.4","Is lower case enforced for all URLs?","auto"],
+["26.5","Multiple slashes in URLs?","auto"],
+["26.6","Are trailing slashes being incorporated? /seo (bad) /seo/ (good)","auto"],
+["27.1","Is the server returning a 404 status on error pages (not soft 404)?","auto"],
+["27.2","Are there current server errors (5xx codes)?","auto"],
+["27.3","Are 302 redirects avoided?","auto"],
+["27.4","Are 307s used over 302s for temporary product redirects?","auto"],
+["27.5","Is there a custom 404 page with CTA and links to main category pages?","auto"],
+["28.1","PageSpeed Insights: Mobile Score","auto"],
+["28.2","GTMetrix / Pingdom Score","auto"],
+["28.3","Site Speed (PSI via Screaming Frog)","auto"],
+["28.4","Core Web Vitals Test (GSC Groups)","auto"],
+["28.5","Wordpress site - is speed a significant issue? Separate speed audit?","manual","AM please create separate task."]
+]},
+{name:"Local",items:[
+["29.1","Do individual stores have dedicated pages with proper titles & details?","auto"],
+["29.2","Is the site listed in reputable business directories?","manual","Manual: verify directories for brick-and-mortar stores."],
+["29.3","Is there a consistent NAP across the site and external sites?","manual","Manual: check Name/Address/Phone consistency."],
+["29.4","Has Google MyBusiness been setup and optimised for each location?","manual","AM please create separate task."]
+]},
+{name:"Tracking",items:[
+["30.1","Are pageviews & goals/conversions set up in GA4?","auto"],
+["30.3","If ecommerce, is ecom tracking set up in GA4?","auto"],
+["30.4","Does the client need a separate CRO audit?","manual"]
+]},
+{name:"Off-Page",items:[
+["31.1","Check backlink profile in Ahrefs","auto"],
+["31.2","Is the current backlink budget enough? Increase 10% &gt; 20%?","auto"],
+["31.3","Does the site need a disavow? (SME N/A)","auto"]
+]},
+{name:"Standard Procedures",items:[
+["32.1","Backlink request","manual","Ask AM to put the special requirement here (if any)."],
+["32.2","Backlink Monthly Task Created","manual","Create the monthly backlink task in Sentr."],
+["32.3","Content request (TC)","manual","New standard - min. 450 words which includes FAQs."],
+["32.4","Content request (EN)","manual","Each target page gets copy."],
+["32.5","Check geographic LOCATION is added to keywords in Serpbook","manual","Make sure the right search engine is selected. Add GMB/address."],
+["32.6","Post Keywords, URLs in Notes | CAMPAIGN KEYWORDS AND TARGET URLS (YYYYMMDD)","manual","ALWAYS PASTE THIS SHEET INTO SENTR. EVEN FOR REVIEWS."],
+["32.7","Reply Onsite Tech ticket, Paste Checklist, Upload XLS","manual","ALWAYS DOWNLOAD THIS SHEET AND ATTACH TO SENTR."],
+["32.8","Update the responsibility and priority in Tab - Priorities & Status","manual","ALWAYS UPDATE Priorities & Status Tab."]
+]}
+];
+
+/* Demo runs — overrides keyed by check id; everything else keeps its
+   kind-based default (manual -> Manual, semi-auto -> Review, auto -> Pass). */
+const RUNS={
+  "firstpage.com.hk":{
+    ai:"Clean technical foundation: HTTPS, robots, sitemap and canonicals are all healthy. The gaps sit in the content layer: 27 missing meta descriptions, 3 missing titles, 6 thin pages, and a handful of indexation issues (tag archives, one noindexed template). Mobile speed is the biggest risk, LCP at 3.9s on PSI. 8 manual steps need an AM before the audit can close.",
+    over:{
+      "7.1":["warn","3 product pages target 'hk seo services'; GSC shows they compete for the same queries"],
+      "7.4":["fail","42 tag/archive URLs indexed, 28 of them with zero organic clicks in 90 days"],
+      "9.2":["fail","2 pages serve mixed content over https: /blog/ and /careers/"],
+      "10.7":["warn","robots.txt has no Sitemap: directive pointing at the XML sitemap"],
+      "11.4":["warn","lastmod missing on 31% of sitemap URLs"],
+      "12.3":["fail","/contact/ carries noindex from a staging template; not removed on deploy"],
+      "14.3":["fail","rel=prev / rel=next used on 2 paginated series; deprecated and ignored by Google"],
+      "17.1":["fail","3 pages missing title: /thank-you/, /careers/, /tag/seo/"],
+      "17.3":["warn","11 titles exceed the 580px SERP cutoff"],
+      "18.1":["fail","27 pages missing meta description, mostly category pages"],
+      "20.1":["warn","14 images missing alt text on category pages"],
+      "22.2":["fail","6 pages under 150 words: /faq/, /privacy/, 4 archive pages"],
+      "24.8":["warn","4 broken internal links returning 404 (2 in footer, 2 in blog posts)"],
+      "27.3":["warn","3 internal 302 redirects found on product URLs"],
+      "28.1":["fail","PSI mobile score 41; LCP 3.9s, CLS 0.18"],
+      "28.4":["warn","LCP rated poor on 22% of URLs per GSC Core Web Vitals"],
+      "30.3":["warn","ecommerce tracking partially set: purchases fire, but item-scoped events missing"],
+      "31.2":["warn","referring domain count flat for 2 months; 10% growth target not on pace"]
+    }
+  },
+  "harbourretail.hk":{
+    ai:"Strong mobile performance (PSI 82, LCP under 2.2s) and a healthy canonical setup. Main issues are indexation hygiene: 150 thin tag pages indexed, and 9% of crawl budget going to search-result URLs. Titles and descriptions are well maintained. One manual item blocks close: GMB optimisation for the third store.",
+    over:{
+      "7.4":["fail","150 tag pages indexed, majority with no clicks"],
+      "9.2":["warn","mixed content on /checkout/ blocks some third-party scripts"],
+      "11.4":["warn","lastmod missing on all product URLs"],
+      "12.2":["fail","internal search results indexed (3,200 URLs); noindex rule missing"],
+      "17.1":["fail","12 product pages missing titles (variant URLs)"],
+      "18.2":["warn","8 duplicate meta descriptions across colour variants"],
+      "22.2":["fail","23 thin category pages under 120 words"],
+      "25.4":["fail","9% of crawl budget spent on /search/?q= URLs"],
+      "28.1":["pass","PSI mobile 82, LCP 2.1s, CLS 0.02"],
+      "29.4":["fail","GMB for store 3 not claimed; store 1 and 2 optimised"]
+    }
+  },
+  "victoriasalon.com.hk":{
+    ai:"Older build with real technical debt: 41 mixed-content issues, duplicated canonicals on blog posts, and a PSI mobile score of 34. Content layer is thin across the board (titles, descriptions, H1s all under-maintained). Backlink profile is small but clean, no disavow needed. Recommend a separate speed audit before content work.",
+    over:{
+      "7.6":["warn","18 blog posts from 2019-2021 with outdated pricing references"],
+      "9.2":["fail","41 URLs serving mixed content"],
+      "11.3":["warn","4 sitemap URLs use non-www while canonicals use www"],
+      "12.3":["fail","/blog/ author archive accidentally noindexed"],
+      "13.1":["fail","22 blog posts missing self-referencing canonicals"],
+      "17.1":["fail","18 URLs missing titles"],
+      "18.1":["fail","34 URLs missing meta descriptions"],
+      "19.1":["fail","9 pages with multiple H1 tags"],
+      "20.2":["warn","12 hero images over 400KB uncompressed"],
+      "28.1":["fail","PSI mobile 34; LCP 5.8s, CLS 0.31"],
+      "28.5":["fail","WordPress site, speed is a significant issue; separate speed audit required"],
+      "31.2":["fail","backlink budget far below target; 8 referring domains added this quarter"]
+    }
+  }
+};
+
+const HISTORY=[
+  {id:104,domain:"firstpage.com.hk",date:"2025-11-28 14:32",run:"firstpage.com.hk"},
+  {id:101,domain:"harbourretail.hk",date:"2025-11-14 10:05",run:"harbourretail.hk"},
+  {id:97,domain:"victoriasalon.com.hk",date:"2025-10-30 16:48",run:"victoriasalon.com.hk"}
+];
+
+const VERDICT={pass:["Pass","pass"],fail:["Fail","fail"],warn:["Review","warn"],manual:["Manual","manual"],"n-a":["N/A","n-a"]};
+
+/* ---------- state ---------- */
+let current=null;         // { domain, ai, checks:[{id,item,kind,verdict,evidence,instruction,section}] }
+let histLoaded=null;      // history id currently shown
+let timers=[];
+
+function clearTimers(){timers.forEach(clearTimeout);timers=[];}
+function later(fn,ms){timers.push(setTimeout(fn,ms));}
+
+/* ---------- build an audit result from a run ---------- */
+function buildRun(runKey,domain){
+  const run=RUNS[runKey]||RUNS["firstpage.com.hk"];
+  const checks=[];
+  SECS.forEach(sec=>{
+    sec.items.forEach(it=>{
+      const id=it[0],item=it[1],kind=it[2],instr=it[3];
+      let verdict=kind==="manual"?"manual":(kind==="semi-auto"?"warn":"pass");
+      let evidence="";
+      const o=run.over[id];
+      if(o){verdict=o[0];evidence=o[1];}
+      checks.push({id,item,kind,verdict,evidence,instruction:instr||"",section:sec.name});
+    });
+  });
+  return {domain,ai:run.ai,checks};
+}
+
+/* ---------- rendering ---------- */
+function renderResult(r){
+  current=r;
+  document.getElementById("result").classList.add("show");
+  document.getElementById("res-domain").textContent=r.domain;
+  document.getElementById("res-when").textContent="Completed "+(histLoaded?HISTORY.find(h=>h.id===histLoaded).date:new Date().toLocaleString());
+  document.getElementById("res-ai").textContent=r.ai;
+
+  const s={total:r.checks.length,pass:0,fail:0,warn:0,manual:0};
+  r.checks.forEach(c=>{if(s[c.verdict]!==undefined)s[c.verdict]++;});
+  const stats=document.getElementById("stats");
+  stats.innerHTML="";
+  [["t","Total",s.total],["p","Pass",s.pass],["f","Fail",s.fail],["r","Review",s.warn],["m","Manual",s.manual]].forEach(x=>{
+    const d=document.createElement("div");d.className="stat "+x[0];
+    d.innerHTML='<div class="v">'+x[2]+'</div><div class="k">'+x[1]+"</div>";
+    stats.appendChild(d);
+  });
+
+  const man=r.checks.filter(c=>c.verdict==="manual");
+  document.getElementById("manual-n").textContent=man.length+" items";
+  const ml=document.getElementById("manual-list");
+  ml.innerHTML="";
+  man.forEach(c=>{
+    const row=document.createElement("label");row.className="mrow";
+    row.innerHTML='<input type="checkbox"><span class="m-id">'+c.id+'</span><span class="mid"><b>'+c.item+'</b>'+(c.instruction?'<span class="instr">'+c.instruction+"</span>":"")+"</span>";
+    row.querySelector("input").addEventListener("change",()=>row.classList.toggle("done",row.querySelector("input").checked));
+    ml.appendChild(row);
+  });
+
+  const secs=document.getElementById("sections");
+  secs.innerHTML="";
+  SECS.forEach(sec=>{
+    const items=r.checks.filter(c=>c.section===sec.name);
+    const mini={pass:0,fail:0,warn:0,manual:0};
+    items.forEach(c=>{if(mini[c.verdict]!==undefined)mini[c.verdict]++;});
+    const secEl=document.createElement("section");secEl.className="sec";secEl.dataset.sec=sec.name;
+    secEl.innerHTML='<div class="sec-head"><h3>'+sec.name+'</h3><span class="cnt">'+items.length+' checks</span>'+
+      '<span class="mini"><span>PASS <b>'+mini.pass+'</b></span><span>FAIL <b style="color:var(--bad)">'+mini.fail+'</b></span><span>REV <b style="color:var(--warn)">'+mini.warn+'</b></span><span>MAN <b>'+mini.manual+'</b></span></span>'+
+      '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></div><div class="sec-body"></div>';
+    const body=secEl.querySelector(".sec-body");
+    items.forEach(c=>{
+      const v=VERDICT[c.verdict]||VERDICT["n-a"];
+      const row=document.createElement("div");row.className="check";row.dataset.v=c.verdict;
+      row.innerHTML='<span class="c-id">'+c.id+'</span><div class="c-body"><span class="c-item">'+c.item+'<span class="kind-tag">'+c.kind+"</span></span>"+
+        (c.evidence?'<div class="c-ev"><b>'+v[0]+':</b> '+c.evidence+"</div>":"")+"</div>"+
+        '<span class="badge '+v[1]+'">'+v[0]+"</span>";
+      body.appendChild(row);
+    });
+    secEl.querySelector(".sec-head").addEventListener("click",()=>secEl.classList.toggle("collapsed"));
+    secs.appendChild(secEl);
+  });
+  applyFilter(document.querySelector("#filters .on").dataset.f);
+}
+
+/* ---------- filter ---------- */
+function applyFilter(f){
+  let visible=0;
+  document.querySelectorAll(".check").forEach(row=>{
+    const ok=f==="all"||row.dataset.v===f;
+    row.classList.toggle("hidden",!ok);
+    if(ok)visible++;
+  });
+  let any=false;
+  document.querySelectorAll(".sec").forEach(sec=>{
+    const has=Array.from(sec.querySelectorAll(".check")).some(r=>!r.classList.contains("hidden"));
+    sec.classList.toggle("hidden",!has);
+    if(has)any=true;
+  });
+  document.getElementById("no-match").classList.toggle("show",!any);
+}
+
+/* ---------- history ---------- */
+function renderHistory(activeId){
+  const list=document.getElementById("hist-list");
+  list.innerHTML="";
+  HISTORY.forEach(h=>{
+    const r=buildRun(h.run,h.domain);
+    const s={pass:0,fail:0,warn:0,manual:0};
+    r.checks.forEach(c=>{if(s[c.verdict]!==undefined)s[c.verdict]++;});
+    const row=document.createElement("div");row.className="hrow";
+    row.innerHTML='<div class="h-main"><b>'+h.domain+'</b><div class="h-sub">Run #'+h.id+' · '+h.date+"</div></div>"+
+      '<div class="h-sum"><span class="f">'+s.fail+' fail</span> · <span class="r">'+s.warn+' review</span> · <span class="m">'+s.manual+" manual</span></div>"+
+      '<button class="view">'+(activeId===h.id?"Viewing":"View")+"</button>";
+    const btn=row.querySelector(".view");
+    btn.addEventListener("click",()=>{
+      histLoaded=h.id;
+      document.getElementById("result").classList.add("show");
+      renderResult(buildRun(h.run,h.domain));
+      document.querySelectorAll(".view").forEach(b=>{b.textContent="View";b.classList.remove("on");});
+      btn.textContent="Viewing";btn.classList.add("on");
+    });
+    list.appendChild(row);
+  });
+  document.getElementById("hist-n").textContent=HISTORY.length+" saved runs";
+}
+
+/* ---------- run flow (job simulation) ---------- */
+function setProgress(name,phase,msg,pages){
+  const card=document.getElementById("progress-card");
+  card.classList.add("show");
+  document.getElementById("stage-name").textContent=name;
+  document.getElementById("stage-phase").textContent=phase;
+  document.getElementById("stage-msg").textContent=msg;
+  document.getElementById("stage-pages").textContent=pages||"";
+}
+
+function runAudit(){
+  const input=document.getElementById("url");
+  let u=input.value.trim();
+  if(!u){input.focus();return;}
+  if(!/^https?:\/\/.+\..+/.test(u))u="https://"+u.replace(/^\/+/,"");
+  input.value=u;
+  clearTimers();
+  histLoaded=null;
+  document.getElementById("err").classList.remove("show");
+  document.getElementById("result").classList.remove("show");
+  document.querySelectorAll(".view").forEach(b=>{b.textContent="View";b.classList.remove("on");});
+
+  const btn=document.getElementById("run-btn"),lbl=document.getElementById("run-lbl");
+  btn.disabled=true;lbl.textContent="Running…";
+  let domain=u.replace(/^https?:\/\//,"").replace(/\/.*$/,"");
+  let runKey=domain;
+  if(!RUNS[runKey])runKey="firstpage.com.hk";
+
+  const fill=document.getElementById("stage-fill");
+  fill.style.width="0%";
+  setProgress("Queued","JOB PHASE","Waiting for the job queue…","");
+  later(()=>{
+    setProgress("Crawling","JOB PHASE","Crawling the site with browserless…","");
+    const total=214;
+    const steps=[3,11,24,42,63,87,112,139,168,198,214];
+    steps.forEach((n,i)=>{
+      later(()=>{
+        fill.style.width=(n/total*100)+"%";
+        document.getElementById("stage-pages").textContent=n+" of "+total+" pages";
+        if(i===steps.length-1){
+          later(()=>{
+            setProgress("Collecting signals","JOB PHASE","Pulling GSC, GA4, PageSpeed and Ahrefs data for "+domain+"…","");
+            later(()=>{
+              setProgress("Summarizing","JOB PHASE","The LLM is writing the executive summary…","");
+              later(()=>{
+                cardDone();
+                btn.disabled=false;lbl.textContent="Run audit";
+                renderResult(buildRun(runKey,domain));
+                          try{localStorage.setItem("onsite-last-url",u);}catch(_){}
+              },1400);
+            },1600);
+          },400);
+        }
+      },i*260);
+    });
+  },800);
+
+  function cardDone(){
+    document.getElementById("stage-name").textContent="Done";
+    document.getElementById("stage-phase").textContent="COMPLETE";
+    document.getElementById("stage-msg").textContent="Audit finished. "+domain+" checked against the full implementation checklist.";
+    document.getElementById("stage-pages").textContent="";
+    fill.style.width="100%";
+  }
+}
+
+/* ---------- downloads ---------- */
+function toMarkdown(r){
+  const s={pass:0,fail:0,warn:0,manual:0};
+  r.checks.forEach(c=>{if(s[c.verdict]!==undefined)s[c.verdict]++;});
+  const lines=["# Onsite SEO Audit: "+r.domain,"",r.ai,"",
+    "**Summary:** "+s.pass+" pass · "+s.fail+" fail · "+s.warn+" review · "+s.manual+" manual",""];
+  SECS.forEach(sec=>{
+    lines.push("## "+sec.name,"","| # | Check | Status | Evidence |","|---|-------|--------|----------|");
+    r.checks.filter(c=>c.section===sec.name).forEach(c=>{
+      lines.push("| "+c.id+" | "+c.item.replace(/\|/g,"\\|")+" | "+VERDICT[c.verdict][0]+" | "+(c.evidence||"").replace(/\|/g,"\\|")+" |");
+    });
+    lines.push("");
+  });
+  const man=r.checks.filter(c=>c.verdict==="manual"&&c.instruction);
+  if(man.length){
+    lines.push("## Manual actions needed","");
+    man.forEach(m=>lines.push("- [ ] "+m.id+" "+m.item+" ("+m.instruction+")"));
+    lines.push("");
+  }
+  return lines.join("\n");
+}
+function download(name,content,mime){
+  const blob=new Blob([content],{type:mime});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ---------- wire up ---------- */
+document.getElementById("run-btn").addEventListener("click",runAudit);
+document.getElementById("url").addEventListener("keydown",e=>{if(e.key==="Enter")runAudit();});
+document.getElementById("rerun").addEventListener("click",e=>{
+  e.preventDefault();
+  document.getElementById("url").focus();
+});
+document.getElementById("dl-md").addEventListener("click",()=>{if(current)download("onsite-audit.md",toMarkdown(current),"text/markdown");});
+document.getElementById("dl-json").addEventListener("click",()=>{
+  if(!current)return;
+  const out={domain:current.domain,summary:{passed:0,failed:0,warned:0,manual:0,total:current.checks.length},sections:[],manualActions:[]};
+  current.checks.forEach(c=>{
+    if(out.summary[c.verdict]!==undefined)out.summary[c.verdict]++;
+    if(c.verdict==="manual"&&c.instruction)out.manualActions.push({id:c.id,item:c.item,section:c.section,instruction:c.instruction});
+  });
+  SECS.forEach(sec=>{
+    out.sections.push({name:sec.name,items:current.checks.filter(c=>c.section===sec.name).map(c=>({id:c.id,item:c.item,kind:c.kind,verdict:c.verdict,evidence:c.evidence}))});
+  });
+  download("onsite-audit.json",JSON.stringify(out,null,2),"application/json");
+});
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  applyFilter(b.dataset.f);
+});
+
+try{
+  const saved=localStorage.getItem("onsite-last-url");
+  if(saved)document.getElementById("url").value=saved;
+}catch(_){}
+
+renderHistory(null);
+</script>
+</body>
+</html>

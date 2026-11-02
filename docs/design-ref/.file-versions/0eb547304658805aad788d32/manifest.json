@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "fileName": "index.html",
+  "entries": [
+    {
+      "id": "c5210a92-8a55-438c-adde-50de0ad105b1",
+      "fileName": "index.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1786402328227,
+      "source": "ai",
+      "prompt": "@creative-director\nCurrent target: File · index.html.\nSelected skill: creative-director. Use it as the primary workflow for this turn.\nGlobal resource index: skills(162), plugins(446), MCP(0 enabled / 39 templates), connectors(0 connected), design files(8).\nSearchable skills: 8-bit-orbit-video-template, ad-creative, after-hours-editorial-template, agent-browser, ai-music-album, algorithmic-art, apple-hig, article-magazine, artifacts-builder, brainstorming, brand-extract, brand-guidelines, brandkit, industrial-brutalist-ui, canvas-design, card-twitter, card-xiaohongshu, chat-motion-overlay, color-expert, competitive-ads-extractor, copywriting, creative-director, d3-visualization, data-report, deck-guizang-editorial, deck-open-slide-canvas, deck-swiss-international, design-brief, design-consultation, design-md, design-review, digits-fintech-swiss-template, doc, doc-kami-parchment, docx, domain-name-brainstormer, ecommerce-image-workflow, editorial-burgundy-principles-template, emil-design-eng, emilkowalski-motion, enhance-prompt, export-download-debugging, fal-3d, fal-generate, fal-image-edit, fal-kling-o3, fal-lip-sync, fal-realtime, fal-restore, fal-train, fal-tryon, fal-upscale, fal-video-edit, fal-vision, faq-page, field-notes-editorial-template, figma-code-connect-components, figma-create-design-system-rules, figma-create-new-file, figma-generate-design, +102 more.\nSearchable plugins: 3D Animated Boy Building Lego, 3D Stone Staircase Evolution Infographic, A Decade of Refinement Glow-Up, Agentic, Airbnb, Airtable, Ancient Guardian Dragon Rescue, Ancient Indian Kingdom FPV Video, Animation transfer and camera tracking prompt, Anime Martial Arts Battle Illustration, Ant, Apple, Application, Arc Browser, Art-Direct an Annual Report like a Magazine Creative Director, Artistic, Atelier Zero, Audio Jingle, Aurora Veil, BMW, BMW M, Beat-Synced Outfit Transformation Dance, Bento, Binance.US, Blog Post, Bold, Bold Poster Frame, Bold Signal Frame, Brief AI in Your Industry like a Tier-1 Consulting AI Vertical Lead, Brief a Health-System Board on Data Governance like a Chief Compliance Officer, Brutalism, Bugatti, Build Minimal Frame, Build a Buyer-Committee Leave-Behind like an Enterprise Sales Lead, Build a Designer Portfolio Narrative like a Hiring Bar-Raiser, Build a New-Hire Onboarding Module like a Top Enablement Lead, Build a Positioning & Messaging System like a Brand Strategist, Build a Studio Portfolio & Rate Deck like a Creative Studio Owner, Build an Editorial Design System like a Magazine Art Director, Cafe, +398 more.\nAvailable MCP: Higgsfield (OpenClaw) template, Pollinations template, Allyson (animated SVG) template, AWS Bedrock Image (Nova Canvas / SD 3.5) template, Prompt-to-Asset (icons / favicons / OG / logos) template, Nano Banana (AceDataCloud) template, Seedream (AceDataCloud) template, fal.ai (600+ models) template, Imagician (image post-processing) template, ImageSorcery (CV-based editing) template, Photopea (layered editor) template, Topaz Labs (AI upscale / denoise / sharpen) template, Transloadit (media pipelines) template, Screenshot Website (fast) template, ScreenshotOne (managed) template, Pagecast (browser → demo GIF / MP4) template, Figma Context (read designs → code) template, Design Token Bridge template, Design System Extractor (Storybook) template, figma-use (write designs from chat) template, Aesthetics Wiki (moodboard / inspiration) template, 21st.dev Magic (UI components) template, shadcn/ui template, FlyonUI (blocks & landing pages) template, AntV Chart template, Mermaid diagrams template, MCP Dashboards (45+ chart types) template, Excalidraw Architect (hand-drawn diagrams) template, EdgeOne Pages (publish HTML) template, PageDrop (instant HTML hosting) template, PDFSpark (HTML / URL → PDF) template, OGForge (Open Graph image generator) template, QRMint (styled QR codes) template, Slideshot (HTML → PDF / PNG / WebP / PPTX) template, Deckrun (Markdown → PDF / video / audio) template, Filesystem template, GitHub template, Fetch (HTTP) template, A11y (Web accessibility / WCAG) template.\nReference design files: dashboard.html, tools.html, admin.html, presentation.html, toolbox.html, login.html, index.html, brand-spec.md.\nWorkflow rule: define the aesthetic goal and constraints first, then search and match resources; when user choice is needed, generate a structured question-form with editable custom answers and continue after confirmation.\nAct as the Creative Director orchestrator and complete a design workflow:\n1. Define what “good-looking design” means first: audience, business goal, brand feel, style references, information density, color/type/motion/asset standards, and AI/template patterns to avoid.\n2. Search and match the full resource index above. Do not only use design toolbox recommendations; combine skills, MCP, plugins, connectors, and design files when useful.\n3. If the target or aesthetic bar is still unclear, guide me with a structured question-form, include recommended defaults, and make each finite-choice question editable with a custom answer field. If it is clear enough, execute the next step directly.\n4. Complete the flow in this order: diagnose -> style direction -> resource selection -> concrete edit/generation -> verification. At each step, explain why these resources were chosen and what needs confirmation next.",
+      "size": 17050,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-c5210a92-8a55-438c-adde-50de0ad105b1.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "95568076-9626-4dc1-8625-41f90735aa20",
+      "fileName": "index.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1786402434198,
+      "source": "ai",
+      "prompt": "Presentation 會唔會有個更好的名？",
+      "size": 16980,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-95568076-9626-4dc1-8625-41f90735aa20.html",
+      "promptSource": "message"
+    }
+  ]
+}

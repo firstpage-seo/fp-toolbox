@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview · FirstPage Division Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --green:oklch(0.55 0.14 152);
+  --amber:oklch(0.72 0.15 75);
+  --rose:oklch(0.62 0.20 22);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-mono:"SFMono-Regular",ui-monospace,Menlo,monospace;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--surface);color:var(--fg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.15;color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+/* ---------- header ---------- */
+.topbar{background:var(--navy);color:#fff;font-size:12px;letter-spacing:0.07em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:7px;padding-bottom:7px}
+.topbar .regions{display:flex;gap:14px;opacity:.7}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display)}
+.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.08em}
+.brand .name{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff}
+nav.main a.cta:hover{filter:brightness(1.05)}
+/* ---------- page head ---------- */
+.pagehead{background:var(--grad-banner);color:#fff;padding:34px 0 40px}
+.pagehead .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.pagehead h1{color:#fff;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.015em}
+.pagehead .sub{color:oklch(0.93 0.02 250);font-size:14px;margin-top:4px}
+.pagehead .submeta{color:oklch(0.93 0.02 250);font-size:12.5px;margin-top:3px;opacity:.85}
+.range{display:inline-flex;background:oklch(1 0 0 / 0.14);border:1px solid oklch(1 0 0 / 0.22);border-radius:10px;padding:4px;gap:2px}
+.range button{border:0;background:transparent;color:oklch(0.93 0.02 250);font-family:var(--font-display);font-weight:700;font-size:13px;padding:8px 16px;border-radius:7px;cursor:pointer;min-height:38px}
+.range button.on{background:#fff;color:var(--navy)}
+/* ---------- sticky section nav ---------- */
+.sectnav{position:sticky;top:64px;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.sectnav .wrap{display:flex;gap:6px;padding-top:10px;padding-bottom:10px}
+.sectnav a{padding:8px 16px;border-radius:999px;font-size:13.5px;font-weight:700;color:var(--muted)}
+.sectnav a:hover{background:var(--surface);text-decoration:none}
+.sectnav a.on{background:var(--navy);color:#fff}
+main{background:var(--surface)}
+section.zone{padding:38px 0 8px}
+.zonehead{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.zonehead h2{font-size:24px;font-weight:800}
+.zonehead .tag{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:999px;background:#fff}
+/* ---------- takeaways ---------- */
+.takeaways{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.takeaways .tk-tag{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.takeaways ul{list-style:none;display:grid;gap:8px}
+.takeaways li{font-size:14.5px;color:var(--fg);line-height:1.55;max-width:78ch}
+.takeaways li b{color:var(--navy)}
+/* ---------- AI plan ---------- */
+.aibox{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);margin-bottom:20px;overflow:hidden}
+.aibox .hd{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);background:oklch(0.965 0 0 / .6)}
+.aibox .hd h3{font-size:15px;font-weight:800}
+.aibox .hd .pill{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-600);background:oklch(0.62 0.16 250 / 0.1);padding:4px 10px;border-radius:999px}
+.aibox ol{list-style:none}
+.aibox li{display:flex;gap:14px;padding:15px 20px;border-bottom:1px solid var(--border);align-items:flex-start}
+.aibox li:last-child{border-bottom:0}
+.aibox li .num{flex-shrink:0;width:26px;font-weight:800;font-size:13px;color:var(--blue-600);font-variant-numeric:tabular-nums}
+.aibox li .why{font-size:14.5px}
+.aibox li .why b{color:var(--navy)}
+.aibox li .res{font-size:13px;color:var(--muted);margin-top:2px}
+.impact{flex-shrink:0;margin-left:auto;font-size:11.5px;font-weight:800;letter-spacing:.07em;padding:5px 12px;border-radius:999px}
+.impact.high{background:oklch(0.55 0.14 152 / 0.14);color:oklch(0.42 0.13 152)}
+.impact.med{background:oklch(0.72 0.15 75 / 0.18);color:oklch(0.55 0.13 75)}
+/* ---------- cards / kpi ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:20px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px}
+.kpi .lb{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi .val{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin-top:8px;line-height:1.05}
+.kpi .val small{font-size:16px;font-weight:700}
+.kpi .delt{margin-top:6px;font-size:13px;font-weight:700}
+.kpi .delt.up{color:oklch(0.45 0.13 152)}
+.kpi .delt.dn{color:var(--rose)}
+.kpi .delt.warn{color:var(--amber)}
+.kpi .delt .hint{font-weight:400;color:var(--muted)}
+.kpi .spark{margin-top:10px;height:26px}
+/* ---------- generic card ---------- */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px;margin-bottom:20px}
+.card .hd{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.card .hd h3{font-size:15.5px;font-weight:800}
+.card .hd .src{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card .hd .src b{color:var(--blue-600)}
+.card .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card .two > div:last-child{border-left:1px solid var(--border);padding-left:22px}
+.stat-mini{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px dashed var(--border)}
+.stat-mini:last-child{border-bottom:0}
+.stat-mini .l{font-size:13.5px;color:var(--muted)}
+.stat-mini .v{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--navy)}
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1.5px solid var(--border)}
+td{padding:10px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+td b{color:var(--navy)}
+.q{font-weight:600}
+/* ---------- bars ---------- */
+.hbar-row{display:flex;align-items:center;gap:12px;padding:6px 0}
+.hbar-row .nm{width:130px;flex-shrink:0;font-size:13px;font-weight:600;color:var(--navy);text-align:right}
+.hbar-row .track{flex:1;height:18px;background:var(--surface);border-radius:5px;overflow:hidden}
+.hbar-row .fill{height:100%;border-radius:5px}
+.hbar-row .vl{width:64px;flex-shrink:0;font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
+/* ---------- legend ---------- */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+/* ---------- status ---------- */
+.minih{font-size:13.5px;font-weight:800;margin:14px 0 6px}
+.statusline{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 13px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip .dot.ok{background:oklch(0.55 0.14 152)}
+.chip b{font-family:var(--font-mono);font-size:12px;color:var(--navy)}
+.checks{display:flex;gap:3px;margin-top:8px}
+.checks i{flex:1;height:10px;border-radius:2px;background:oklch(0.55 0.14 152)}
+.checks i.fail{background:var(--rose)}
+/* ---------- score band ---------- */
+.band{height:12px;border-radius:6px;margin:10px 0 8px;background:linear-gradient(90deg,var(--rose) 0 49%,var(--amber) 49% 89%,oklch(0.55 0.14 152) 89% 100%)}
+.bandmarks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:600}
+.bigscore{display:flex;align-items:baseline;gap:8px}
+.bigscore .n{font-family:var(--font-display);font-size:44px;font-weight:800;letter-spacing:-0.02em;color:var(--navy);line-height:1}
+.bigscore .s{font-size:14px;color:var(--muted);font-weight:600}
+/* ---------- pipeline ---------- */
+.funnel{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.funnel .row{display:flex;align-items:center;gap:12px}
+.funnel .lab{width:70px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.funnel .track{flex:1;height:22px;background:var(--surface);border-radius:6px;overflow:hidden}
+.funnel .fill{height:100%;border-radius:6px}
+.funnel .val{width:120px;text-align:right;font-size:13px;font-family:var(--font-mono)}
+/* ---------- leaderboard ---------- */
+.lb-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.lb-row:last-child{border-bottom:0}
+.lb-row .rk{width:26px;height:26px;border-radius:8px;background:var(--surface);display:grid;place-items:center;font-weight:800;font-size:12.5px;color:var(--navy);flex-shrink:0}
+.lb-row .rk.gold{background:oklch(0.72 0.15 75 / 0.25);color:oklch(0.5 0.13 75)}
+.lb-row .who{width:150px;flex-shrink:0;font-weight:700;color:var(--navy);font-size:13.5px}
+.lb-row .who small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+.lb-row .track{flex:1;height:12px;background:var(--surface);border-radius:6px;overflow:hidden}
+.lb-row .fill{height:100%;border-radius:6px;background:var(--blue)}
+.lb-row .amt{width:130px;text-align:right;font-family:var(--font-mono);font-weight:700;font-size:13.5px;color:var(--navy)}
+/* ---------- roi table ---------- */
+.roi td:first-child{font-weight:700;color:var(--navy)}
+.roi tfoot td{border-top:2px solid var(--navy);font-weight:800;color:var(--navy)}
+/* ---------- footer ---------- */
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:30px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer strong{color:#fff}
+footer .note{max-width:560px;color:oklch(0.75 0.02 250)}
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  .card .two{grid-template-columns:1fr}
+  .card .two > div:last-child{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:16px;margin-top:4px}
+  .lb-row .who{width:110px}
+  .lb-row .amt{width:100px}
+  .hbar-row .nm{width:96px}
+}
+@media(max-width:640px){
+  .topbar .regions{display:none}
+  nav.main a{padding:7px 9px;font-size:12.5px}
+  nav.main a:nth-child(n+5){display:none}
+  header.nav .wrap{gap:10px}
+  .brand .sub{display:none}
+  .kpi .val{font-size:26px}
+  .pagehead{padding:26px 0 30px}
+  .lb-row{flex-wrap:wrap}
+  .lb-row .track{order:4;flex-basis:100%}
+}
+</style>
+</head>
+<body data-od-id="page-dashboard">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a><a href="#null">USA</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a class="on" href="dashboard.html">Overview</a>
+      <a class="cta" href="toolbox.html">Toolbox</a>
+      <a href="usage.html">Usage</a>
+      <a href="admin.html">Lead Quality</a>
+      <a href="index.html">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pagehead" data-od-id="page-head">
+  <div class="wrap">
+    <div>
+      <h1>FirstPage Division Dashboard</h1>
+      <div class="sub">Website &amp; sales performance, refreshed hourly</div>
+      <div class="submeta">752 GSC sites · 1000+ GA4 properties</div>
+    </div>
+    <div class="range" data-od-id="range-picker" id="range-picker">
+      <button data-d="7" class="on">7d</button>
+      <button data-d="30">30d</button>
+      <button data-d="90">90d</button>
+    </div>
+  </div>
+</div>
+
+<div class="sectnav" data-od-id="section-nav">
+  <div class="wrap">
+    <a class="on" href="#website">Website Performance</a>
+    <a href="#sales">Sales Performance</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ WEBSITE ============ -->
+<section class="zone" id="website" data-od-id="zone-website">
+  <div class="wrap">
+
+    <div class="zonehead">
+      <h2>Website Performance</h2>
+      <span class="tag">firstpage.hk</span>
+    </div>
+
+    <div class="takeaways" data-od-id="takeaways-website">
+      <span class="tk-tag">Last 30 days</span>
+      <ul>
+        <li>Website traffic <b>up 14.2%</b> vs previous period; the strongest week was the third.</li>
+        <li>Organic clicks <b>up 9.8%</b>; average position improved from <b>11.4 to 9.7</b>.</li>
+        <li>PageSpeed <b>72/100, room to improve</b>; LCP is the priority fix (2.9s).</li>
+        <li>Best rep this period: <b>Fei Chen, HK$182k closed-won</b>.</li>
+      </ul>
+    </div>
+
+    <div class="aibox" data-od-id="ai-plan-website">
+      <div class="hd">
+        <h3>AI Suggested Action Plan</h3>
+        <span class="pill">7d plan</span>
+      </div>
+      <ol>
+        <li>
+          <span class="num">1</span>
+          <div>
+            <div class="why"><b>Compress hero images</b>: the two largest LCP candidates above the fold are unoptimised PNGs.</div>
+            <div class="res">LCP 2.9s → ~1.8s on mobile. Swap to AVIF and lazy-load below the fold.</div>
+          </div>
+          <span class="impact high">HIGH IMPACT</span>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div>
+            <div class="why"><b>Push the 3 losing keywords</b>: “seo agency hong kong” dropped 4 positions after the blog refresh.</div>
+            <div class="res">They sit at positions 8-12 with strong CTR headroom.</div>
+          </div>
+          <span class="impact med">MEDIUM</span>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <div>
+            <div class="why"><b>Reply to 4 misjudged leads</b> flagged as spam by the heuristic.</div>
+            <div class="res">Corporate domains with real websites, worth HK$60k+ combined pipeline.</div>
+          </div>
+          <span class="impact med">MEDIUM</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- site status -->
+    <div class="card" data-od-id="card-site-status">
+      <div class="hd"><h3>Site status</h3><span class="src">Source: <b>uptime checks</b></span></div>
+      <div class="statusline">
+        <span class="chip"><span class="dot ok"></span> Online</span>
+        <span class="chip">Last check <b>09:42 HKT</b></span>
+        <span class="chip">Status <b>200</b></span>
+        <span class="chip">Latency <b>312 ms</b></span>
+        <span class="chip">Uptime 24h <b>100%</b></span>
+      </div>
+      <div class="checks" title="12 hourly checks: green pass / red fail">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="legend"><span>Last 12 checks · hourly</span></div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="cgrid" data-od-id="kpi-website">
+      <div class="kpi">
+        <div class="lb">Active users</div>
+        <div class="val">8,412</div>
+        <div class="delt up">▲ 14.2% <span class="hint">vs prev 30d</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 22 L20 18 L40 20 L60 12 L80 14 L100 9 L120 11 L140 5 L160 3" fill="none" stroke="oklch(0.55 0.14 152)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">Organic clicks</div>
+        <div class="val">36,204</div>
+        <div class="delt up">▲ 9.8% <span class="hint">GSC</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 20 L20 18 L40 15 L60 16 L80 12 L100 13 L120 8 L140 9 L160 5" fill="none" stroke="oklch(0.62 0.16 250)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">PageSpeed</div>
+        <div class="val">72<small>/100</small></div>
+        <div class="delt warn">Needs work <span class="hint">mobile</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 16 L30 18 L60 14 L90 12 L120 14 L160 10" fill="none" stroke="oklch(0.72 0.15 75)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">Keywords tracked</div>
+        <div class="val">1,248</div>
+        <div class="delt up">▲ 6.1% <span class="hint">in top 10</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 22 L30 20 L55 17 L85 15 L110 12 L135 9 L160 7" fill="none" stroke="oklch(0.50 0.14 254)" stroke-width="2"/></svg></div>
+      </div>
+    </div>
+
+    <!-- site analytics -->
+    <div class="card" data-od-id="card-ga4">
+      <div class="hd"><h3>Site analytics</h3><span class="src">Source: <b>GA4 · 374723776</b></span></div>
+      <div class="two">
+        <div>
+          <svg viewBox="0 0 560 220" width="100%" role="img" aria-label="Active users and sessions, 30 day trend">
+            <defs>
+              <linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="oklch(0.62 0.16 250 / 0.28)"/>
+                <stop offset="100%" stop-color="oklch(0.62 0.16 250 / 0)"/>
+              </linearGradient>
+            </defs>
+            <line x1="0" y1="190" x2="560" y2="190" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="140" x2="560" y2="140" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="90" x2="560" y2="90" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="40" x2="560" y2="40" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <path d="M0 168 L28 158 L56 162 L84 148 L112 150 L140 136 L168 140 L196 124 L224 128 L252 114 L280 118 L308 102 L336 108 L364 92 L392 96 L420 80 L448 86 L476 70 L504 74 L532 58 L560 62 L560 190 L0 190 Z" fill="url(#gArea)"/>
+            <path d="M0 168 L28 158 L56 162 L84 148 L112 150 L140 136 L168 140 L196 124 L224 128 L252 114 L280 118 L308 102 L336 108 L364 92 L392 96 L420 80 L448 86 L476 70 L504 74 L532 58 L560 62" fill="none" stroke="oklch(0.62 0.16 250)" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M0 180 L28 172 L56 174 L84 166 L112 168 L140 158 L168 162 L196 152 L224 156 L252 146 L280 150 L308 140 L336 144 L364 134 L392 138 L420 128 L448 132 L476 122 L504 126 L532 116 L560 120" fill="none" stroke="oklch(0.50 0.14 254)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 0"/>
+            <circle cx="532" cy="58" r="4" fill="oklch(0.62 0.16 250)"/>
+          </svg>
+          <div class="legend">
+            <span><i style="background:oklch(0.62 0.16 250)"></i> Active users</span>
+            <span><i style="background:oklch(0.50 0.14 254)"></i> Sessions</span>
+            <span><i style="background:repeating-linear-gradient(90deg,var(--muted) 0 2px,transparent 2px 4px)"></i> Users · 7d avg</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat-mini"><span class="l">Active users (30d)</span><span class="v">8,412</span></div>
+          <div class="stat-mini"><span class="l">Sessions (30d)</span><span class="v">11,206</span></div>
+          <div class="stat-mini"><span class="l">Avg users / day</span><span class="v">280</span></div>
+          <div class="stat-mini"><span class="l">Peak day</span><span class="v">Tue 18 · 412</span></div>
+          <div class="stat-mini"><span class="l">Bounce rate</span><span class="v">41.6%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- search performance -->
+    <div class="card" data-od-id="card-gsc">
+      <div class="hd"><h3>Search performance</h3><span class="src">Source: <b>GSC · firstpage.hk</b></span></div>
+      <div class="two">
+        <div>
+          <table data-od-id="table-top-queries">
+            <thead><tr><th>Query</th><th class="num">Impr.</th><th class="num">Clicks</th><th class="num">CTR</th><th class="num">Pos.</th></tr></thead>
+            <tbody>
+              <tr><td class="q">seo agency hong kong</td><td class="num">18,204</td><td class="num"><b>2,311</b></td><td class="num">12.7%</td><td class="num">3.2</td></tr>
+              <tr><td class="q">digital marketing agency hk</td><td class="num">12,876</td><td class="num"><b>1,544</b></td><td class="num">12.0%</td><td class="num">4.1</td></tr>
+              <tr><td class="q">google ads agency hong kong</td><td class="num">9,430</td><td class="num"><b>1,028</b></td><td class="num">10.9%</td><td class="num">5.3</td></tr>
+              <tr><td class="q">local seo services hong kong</td><td class="num">7,655</td><td class="num"><b>912</b></td><td class="num">11.9%</td><td class="num">4.8</td></tr>
+              <tr><td class="q">seo services hong kong price</td><td class="num">5,208</td><td class="num"><b>604</b></td><td class="num">11.6%</td><td class="num">6.2</td></tr>
+              <tr><td class="q">ecommerce seo agency</td><td class="num">4,116</td><td class="num"><b>502</b></td><td class="num">12.2%</td><td class="num">7.4</td></tr>
+              <tr><td class="q">first page digital reviews</td><td class="num">3,402</td><td class="num"><b>389</b></td><td class="num">11.4%</td><td class="num">1.9</td></tr>
+              <tr><td class="q">what is seo hong kong</td><td class="num">2,977</td><td class="num"><b>301</b></td><td class="num">10.1%</td><td class="num">8.6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="stat-mini"><span class="l">Total impressions</span><span class="v">412,806</span></div>
+          <div class="stat-mini"><span class="l">Total clicks</span><span class="v">36,204</span></div>
+          <div class="stat-mini"><span class="l">Avg CTR</span><span class="v">8.8%</span></div>
+          <div class="stat-mini"><span class="l">Avg position</span><span class="v">9.7 <small style="color:var(--muted);font-weight:400">lower is better</small></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- site performance -->
+    <div class="card" data-od-id="card-psi">
+      <div class="hd"><h3>Site performance</h3><span class="src">Source: <b>PageSpeed Insights · mobile</b></span></div>
+      <div class="two">
+        <div>
+          <div class="bigscore"><span class="n">72</span><span class="s">/ 100 performance</span></div>
+          <div class="band"></div>
+          <div class="bandmarks"><span>Poor</span><span>Needs work</span><span>Good</span></div>
+        </div>
+        <div>
+          <div class="stat-mini"><span class="l">Largest Contentful Paint</span><span class="v">2.9 s</span></div>
+          <div class="stat-mini"><span class="l">Cumulative Layout Shift</span><span class="v">0.08</span></div>
+          <div class="stat-mini"><span class="l">First Contentful Paint</span><span class="v">1.6 s</span></div>
+          <div class="stat-mini"><span class="l">Time to Interactive</span><span class="v">4.2 s</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- search presence -->
+    <div class="card" data-od-id="card-ahrefs">
+      <div class="hd"><h3>Search presence</h3><span class="src">Source: <b>Ahrefs</b></span></div>
+      <div class="two">
+        <div>
+          <div class="hbar-row"><span class="nm">seo agency hong kong</span><div class="track"><div class="fill" style="width:92%;background:oklch(0.62 0.16 250)"></div></div><span class="vl">5,400</span></div>
+          <div class="hbar-row"><span class="nm">digital marketing</span><div class="track"><div class="fill" style="width:78%;background:oklch(0.62 0.16 250)"></div></div><span class="vl">4,600</span></div>
+          <div class="hbar-row"><span class="nm">google ads hk</span><div class="track"><div class="fill" style="width:64%;background:oklch(0.62 0.16 250)"></div></div><span class="vl">3,800</span></div>
+          <div class="hbar-row"><span class="nm">seo services</span><div class="track"><div class="fill" style="width:52%;background:oklch(0.62 0.16 250)"></div></div><span class="vl">3,100</span></div>
+          <div class="hbar-row"><span class="nm">ecommerce seo</span><div class="track"><div class="fill" style="width:40%;background:oklch(0.62 0.16 250)"></div></div><span class="vl">2,350</span></div>
+          <div class="legend"><span>Monthly search volume · bars relative to top keyword</span></div>
+        </div>
+        <div>
+          <div class="stat-mini"><span class="l">AI Visibility, total citations</span><span class="v">186</span></div>
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+            <span class="chip" style="justify-content:space-between"><span>ChatGPT</span><b>58</b></span>
+            <span class="chip" style="justify-content:space-between"><span>Perplexity</span><b>41</b></span>
+            <span class="chip" style="justify-content:space-between"><span>Gemini</span><b>37</b></span>
+            <span class="chip" style="justify-content:space-between"><span>Copilot</span><b>32</b></span>
+            <span class="chip" style="justify-content:space-between"><span>AI Overviews</span><b>18</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SALES ============ -->
+<section class="zone" id="sales" data-od-id="zone-sales">
+  <div class="wrap">
+
+    <div class="zonehead sales">
+      <h2>Sales Performance</h2>
+      <span class="tag">HubSpot</span>
+    </div>
+
+    <div class="takeaways" data-od-id="takeaways-sales">
+      <span class="tk-tag">Last 30 days</span>
+      <ul>
+        <li>New leads <b>+8.4%</b>; spam rate down <b>1.2pp, to 31.8%</b>.</li>
+        <li>Closed-won <b>HK$418k</b> across 9 deals; new pipeline <b>HK$1.26M</b> across 14 deals.</li>
+        <li>Lead quality: <b>4 real leads were misjudged as spam</b>, worth following up today.</li>
+      </ul>
+    </div>
+
+    <div class="aibox" data-od-id="ai-plan-sales">
+      <div class="hd">
+        <h3>AI Suggested Action Plan</h3>
+        <span class="pill">7d plan</span>
+      </div>
+      <ol>
+        <li>
+          <span class="num">1</span>
+          <div>
+            <div class="why"><b>Follow up the 4 misjudged leads</b>: flagged as spam but carrying corporate domains.</div>
+            <div class="res">Combined open pipeline potential ≈ HK$60k; they scored 64-71 on re-check.</div>
+          </div>
+          <span class="impact high">HIGH IMPACT</span>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div>
+            <div class="why"><b>Re-target the 2 deals stuck in open</b> beyond 45 days with a pitch deck + proposal pair.</div>
+            <div class="res">Deals with collateral convert 2.1× more often in this pipeline.</div>
+          </div>
+          <span class="impact med">MEDIUM</span>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <div>
+            <div class="why"><b>Watch the spam spike from email-paste errors</b> on the new landing page form.</div>
+            <div class="res">“Email pasted as website” rose 3.4×; a quick form-label fix should cut it.</div>
+          </div>
+          <span class="impact med">MEDIUM</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- KPI row -->
+    <div class="cgrid" data-od-id="kpi-sales">
+      <div class="kpi">
+        <div class="lb">New leads</div>
+        <div class="val">1,284</div>
+        <div class="delt up">▲ 8.4% <span class="hint">vs prev 30d</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 20 L24 18 L48 19 L72 14 L96 15 L120 10 L144 8 L160 6" fill="none" stroke="oklch(0.55 0.14 152)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">Spam rate</div>
+        <div class="val">31.8<small>%</small></div>
+        <div class="delt up">▼ 1.2pp <span class="hint">improvement</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 8 L30 9 L55 11 L85 13 L115 15 L140 17 L160 18" fill="none" stroke="oklch(0.62 0.20 22)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">Closed-won</div>
+        <div class="val">HK$418k</div>
+        <div class="delt up">▲ 22.6% <span class="hint">9 deals</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 22 L25 20 L50 21 L75 15 L100 12 L125 7 L160 3" fill="none" stroke="oklch(0.45 0.13 152)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="kpi">
+        <div class="lb">Pipeline (new)</div>
+        <div class="val">HK$1.26M</div>
+        <div class="delt up">▲ 5.2% <span class="hint">14 deals</span></div>
+        <div class="spark"><svg width="100%" height="26" viewBox="0 0 160 26" preserveAspectRatio="none"><path d="M0 19 L30 18 L55 16 L85 13 L110 11 L140 8 L160 7" fill="none" stroke="oklch(0.50 0.14 254)" stroke-width="2"/></svg></div>
+      </div>
+    </div>
+
+    <!-- pipeline -->
+    <div class="card" data-od-id="card-pipeline">
+      <div class="hd"><h3>Pipeline</h3><span class="src">Source: <b>HubSpot deals</b></span></div>
+      <div class="two">
+        <div>
+          <div class="stat-mini"><span class="l">Avg deal size</span><span class="v">HK$90k</span></div>
+          <div class="stat-mini"><span class="l">Won deals</span><span class="v">9</span></div>
+          <div class="stat-mini"><span class="l">New deals created</span><span class="v">14</span></div>
+          <div class="stat-mini"><span class="l">Open pipeline value</span><span class="v">HK$2.84M</span></div>
+        </div>
+        <div>
+          <div class="funnel">
+            <div class="row"><span class="lab">Open</span><div class="track"><div class="fill" style="width:100%;background:oklch(0.62 0.16 250)"></div></div><span class="val">23 deals · HK$2.84M</span></div>
+            <div class="row"><span class="lab">Won</span><div class="track"><div class="fill" style="width:47%;background:oklch(0.55 0.14 152)"></div></div><span class="val">9 deals · HK$418k</span></div>
+            <div class="row"><span class="lab">Lost</span><div class="track"><div class="fill" style="width:18%;background:oklch(0.62 0.20 22 / 0.7)"></div></div><span class="val">4 deals · HK$152k</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- leaderboard -->
+    <div class="card" data-od-id="card-leaderboard">
+      <div class="hd"><h3>Sales leaderboard</h3><span class="src">closed-won · 30d</span></div>
+      <div class="lb-row"><span class="rk gold">1</span><span class="who">Fei Chen<small>Senior Account Manager</small></span><div class="track"><div class="fill" style="width:100%"></div></div><span class="amt">HK$182k · 4 won</span></div>
+      <div class="lb-row"><span class="rk">2</span><span class="who">Marcus Lo<small>Account Manager</small></span><div class="track"><div class="fill" style="width:64%"></div></div><span class="amt">HK$116k · 3 won</span></div>
+      <div class="lb-row"><span class="rk">3</span><span class="who">Priya Sharma<small>Account Manager</small></span><div class="track"><div class="fill" style="width:41%"></div></div><span class="amt">HK$74k · 1 won</span></div>
+      <div class="lb-row"><span class="rk">4</span><span class="who">Kenji Wong<small>BD Manager</small></span><div class="track"><div class="fill" style="width:25%"></div></div><span class="amt">HK$46k · 1 won</span></div>
+    </div>
+
+    <!-- hubspot leads -->
+    <div class="card" data-od-id="card-hubspot">
+      <div class="hd"><h3>HubSpot leads</h3><span class="src">Source: <b>HubSpot contacts · 7d</b></span></div>
+      <div class="two">
+        <div>
+          <svg viewBox="0 0 560 200" width="100%" role="img" aria-label="Daily new leads, 30 day trend">
+            <defs>
+              <linearGradient id="gLead" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="oklch(0.55 0.14 152 / 0.3)"/>
+                <stop offset="100%" stop-color="oklch(0.55 0.14 152 / 0)"/>
+              </linearGradient>
+            </defs>
+            <line x1="0" y1="170" x2="560" y2="170" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="125" x2="560" y2="125" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="80" x2="560" y2="80" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <line x1="0" y1="35" x2="560" y2="35" stroke="var(--border)" stroke-dasharray="3 4"/>
+            <path d="M0 160 L25 148 L50 152 L75 138 L100 142 L125 128 L150 132 L175 118 L200 122 L225 108 L250 112 L275 96 L300 102 L325 88 L350 92 L375 76 L400 82 L425 66 L450 72 L475 56 L500 62 L525 46 L550 52 L560 50 L560 170 L0 170 Z" fill="url(#gLead)"/>
+            <path d="M0 160 L25 148 L50 152 L75 138 L100 142 L125 128 L150 132 L175 118 L200 122 L225 108 L250 112 L275 96 L300 102 L325 88 L350 92 L375 76 L400 82 L425 66 L450 72 L475 56 L500 62 L525 46 L550 52" fill="none" stroke="oklch(0.55 0.14 152)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div class="legend"><span><i style="background:oklch(0.55 0.14 152)"></i> Daily new leads</span></div>
+        </div>
+        <div>
+          <svg viewBox="0 0 200 200" width="150" height="150" style="margin:0 auto;display:block" role="img" aria-label="Good leads vs spam donut">
+            <circle cx="100" cy="100" r="74" fill="none" stroke="oklch(0.965 0 0)" stroke-width="30"/>
+            <circle cx="100" cy="100" r="74" fill="none" stroke="oklch(0.55 0.14 152)" stroke-width="30" stroke-dasharray="407 465" stroke-dashoffset="29" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+            <circle cx="100" cy="100" r="74" fill="none" stroke="oklch(0.62 0.20 22 / 0.75)" stroke-width="30" stroke-dasharray="58 465" stroke-dashoffset="-378" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+            <text x="100" y="95" text-anchor="middle" font-family="var(--font-display)" font-size="30" font-weight="800" fill="var(--navy)">68%</text>
+            <text x="100" y="118" text-anchor="middle" font-family="var(--font-body)" font-size="11" fill="var(--muted)">good leads</text>
+          </svg>
+          <div class="legend" style="justify-content:center">
+            <span><i style="background:oklch(0.55 0.14 152)"></i> Good leads 68%</span>
+            <span><i style="background:oklch(0.62 0.20 22 / 0.75)"></i> Spam 32%</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="stat-mini"><span class="l">Top spam source</span><span class="v">webleads.co</span></div>
+            <div class="stat-mini"><span class="l">Spam contacts</span><span class="v">1,284</span></div>
+            <div class="stat-mini"><span class="l">Good leads</span><span class="v">2,728</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- lead quality check -->
+    <div class="card" data-od-id="card-lead-quality">
+      <div class="hd"><h3>Lead quality check</h3><span class="src">heuristic review · 30d</span></div>
+      <div class="two">
+        <div>
+          <div class="stat-mini"><span class="l">Engaged leads</span><span class="v">2,728</span></div>
+          <div class="stat-mini"><span class="l">Flagged as spam</span><span class="v">1,284</span></div>
+          <div class="stat-mini"><span class="l">Misjudged rate</span><span class="v">0.31%</span></div>
+          <h4 class="minih">Why real leads get flagged</h4>
+          <div class="hbar-row"><span class="nm">No website</span><div class="track"><div class="fill" style="width:71%;background:oklch(0.72 0.15 75)"></div></div><span class="vl">71%</span></div>
+          <div class="hbar-row"><span class="nm">Free email domain</span><div class="track"><div class="fill" style="width:52%;background:oklch(0.72 0.15 75)"></div></div><span class="vl">52%</span></div>
+          <div class="hbar-row"><span class="nm">Generic mailbox</span><div class="track"><div class="fill" style="width:24%;background:oklch(0.72 0.15 75)"></div></div><span class="vl">24%</span></div>
+        </div>
+        <div>
+          <h4 class="minih">Misjudged leads, follow up today</h4>
+          <table>
+            <thead><tr><th>Contact</th><th>Signal</th><th class="num">Score</th></tr></thead>
+            <tbody>
+              <tr><td>alex@harbour-retail.com</td><td>corporate domain + https site</td><td class="num">71</td></tr>
+              <tr><td>m.wong@zenith-finance.hk</td><td>named mailbox + MX ok</td><td class="num">68</td></tr>
+              <tr><td>sara@bluebay-logistics.com</td><td>company site verified</td><td class="num">64</td></tr>
+            </tbody>
+          </table>
+          <h4 class="minih">Spam without follow-up · top domains</h4>
+          <table>
+            <thead><tr><th>Domain</th><th class="num">Contacts</th></tr></thead>
+            <tbody>
+              <tr><td>webleads.co</td><td class="num">212</td></tr>
+              <tr><td>seo-packages.info</td><td class="num">164</td></tr>
+              <tr><td>leads4u.biz</td><td class="num">128</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- tool roi -->
+    <div class="card" data-od-id="card-tool-roi">
+      <div class="hd"><h3>Tool ROI</h3><span class="src">30d · usage_events</span></div>
+      <table class="roi">
+        <thead><tr><th>Tool</th><th class="num">Runs</th><th class="num">LLM cost (US$)</th></tr></thead>
+        <tbody>
+          <tr><td>Meeting Prep Brief</td><td class="num">186</td><td class="num">18.42</td></tr>
+          <tr><td>Content Brief Generator</td><td class="num">142</td><td class="num">31.67</td></tr>
+          <tr><td>Pitch Deck Generator</td><td class="num">98</td><td class="num">42.10</td></tr>
+          <tr><td>SEO ROI Estimator</td><td class="num">76</td><td class="num">6.83</td></tr>
+          <tr><td>Monthly SEO Report</td><td class="num">54</td><td class="num">24.95</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total (all tools)</td><td class="num">728</td><td class="num">146.28</td></tr></tfoot>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer data-od-id="page-footer">
+  <div class="wrap">
+    <div><strong>FirstPage Hong Kong</strong><br>AI &amp; Automation Team · Led by Glass Chan</div>
+    <div class="note">Data refreshes hourly. Sources: HubSpot, firstpage MCP (GA4 / GSC / PSI), Ahrefs. <a href="toolbox.html" style="color:#fff;font-weight:700">Open the toolbox →</a></div>
+  </div>
+</footer>
+
+<script>
+// range picker
+const rp=document.getElementById('range-picker');
+rp.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    rp.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+// section nav scrollspy
+const zones=document.querySelectorAll('section.zone');
+const sn=document.querySelectorAll('.sectnav a');
+const spy=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      sn.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+zones.forEach(z=>spy.observe(z));
+</script>
+</body>
+</html>

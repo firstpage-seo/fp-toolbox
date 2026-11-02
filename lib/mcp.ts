@@ -182,21 +182,6 @@ export async function getMcpGsc(
   });
 }
 
-/** Landing-page rows for the selected GSC period. */
-export async function getMcpGscPages(
-  siteUrl: string,
-  startDate: string,
-  endDate: string
-): Promise<GscRow[]> {
-  return mcpCall<GscRow[]>("gsc_search_performance", {
-    site_url: siteUrl,
-    start_date: startDate,
-    end_date: endDate,
-    row_limit: 1000,
-    group_by: ["page"],
-  });
-}
-
 export interface McpGscDailyPoint {
   /** YYYY-MM-DD */
   date: string;
@@ -214,13 +199,6 @@ export async function getMcpGscDaily(
   endDate: string,
   rowLimit = 1000
 ): Promise<McpGscDailyPoint[]> {
-  const rows = await getMcpGscDailyRows(siteUrl, startDate, endDate, rowLimit);
-  return rows
-    .map((r) => ({ date: (r.keys ?? [])[0] ?? "", clicks: r.clicks ?? 0 }))
-    .filter((p) => p.date.length === 10);
-}
-
-export async function getMcpGscDailyRows(siteUrl: string, startDate: string, endDate: string, rowLimit = 1000): Promise<GscRow[]> {
   const rows = await mcpCall<GscRow[]>("gsc_search_performance", {
     site_url: siteUrl,
     start_date: startDate,
@@ -228,7 +206,9 @@ export async function getMcpGscDailyRows(siteUrl: string, startDate: string, end
     row_limit: rowLimit,
     group_by: ["date"],
   });
-  return rows.filter((r) => /^\d{4}-\d{2}-\d{2}$/.test(r.keys?.[0] ?? ""));
+  return rows
+    .map((r) => ({ date: (r.keys ?? [])[0] ?? "", clicks: r.clicks ?? 0 }))
+    .filter((p) => p.date.length === 10);
 }
 
 export interface Ga4Row {

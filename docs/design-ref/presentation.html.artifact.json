@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "presentation.html",
+  "entry": "presentation.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-08-10T22:26:08.680Z",
+  "updatedAt": "2026-08-10T22:26:08.680Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

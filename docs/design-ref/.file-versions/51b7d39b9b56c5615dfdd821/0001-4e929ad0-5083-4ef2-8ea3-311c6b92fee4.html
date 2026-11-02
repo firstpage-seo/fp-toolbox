@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toolbox — FirstPage HK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+  --radius:14px;
+  --cat-sales:oklch(0.69 0.20 24);
+  --cat-research:oklch(0.62 0.16 250);
+  --cat-technical:oklch(0.44 0.12 256);
+  --cat-content:oklch(0.72 0.15 75);
+  --cat-ops:oklch(0.55 0.14 152);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.15;color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.topbar{background:var(--navy);color:#fff;font-size:12px;letter-spacing:0.02em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:7px;padding-bottom:7px}
+.topbar .regions{display:flex;gap:14px;opacity:.7}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display)}
+.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.08em}
+.brand .name{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff}
+nav.main a.cta:hover{filter:brightness(1.05)}
+.pagehead{background:var(--grad-banner);color:#fff;padding:36px 0 44px}
+.pagehead .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.pagehead h1{color:#fff;font-size:clamp(26px,3.2vw,34px);font-weight:800;letter-spacing:-0.015em}
+.pagehead .sub{color:oklch(0.93 0.02 250);font-size:14.5px;margin-top:6px;max-width:60ch}
+.pagehead .count{background:oklch(1 0 0 / 0.14);border:1px solid oklch(1 0 0 / 0.22);padding:8px 18px;border-radius:999px;font-weight:700;font-size:14px}
+.controls{position:sticky;top:64px;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}
+.controls .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:240px;position:relative}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
+.search input{width:100%;height:46px;border:1px solid var(--border);border-radius:10px;padding:0 14px 0 42px;font-family:var(--font-body);font-size:14.5px;background:#fff;color:var(--fg)}
+.search input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px oklch(0.62 0.16 250 / 0.15)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border:1px solid var(--border);background:#fff;color:var(--muted);font-family:var(--font-display);font-weight:700;font-size:13px;padding:9px 16px;border-radius:999px;cursor:pointer;min-height:42px;transition:all .12s}
+.chips button:hover{border-color:var(--blue);color:var(--blue-600)}
+.chips button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+main{padding:34px 0 60px}
+section.cat{margin-bottom:38px}
+.cathead{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.cathead h2{font-size:20px;font-weight:800}
+.cathead .bar{width:4px;height:22px;border-radius:2px;align-self:center}
+.cathead .cnt{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.tcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px;transition:transform .13s ease,box-shadow .13s ease;position:relative;overflow:hidden}
+a.tcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);text-decoration:none}
+.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;opacity:0;transition:opacity .13s}
+a.tcard:hover::before{opacity:1}
+.tcard .top{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.tcard .tile{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;flex-shrink:0}
+.tcard .tile svg{width:22px;height:22px;stroke:currentColor}
+.tcard h3{font-size:16.5px;font-weight:800}
+.tcard p{font-size:13.5px;color:var(--muted);line-height:1.5;flex:1}
+.tcard .foot{display:flex;align-items:center;gap:8px;margin-top:14px}
+.tcard .cat{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.tcard .owner{margin-left:auto;font-size:11.5px;color:var(--muted);font-weight:600}
+.tcard .ext{font-size:10.5px;font-weight:800;letter-spacing:.06em;background:var(--navy);color:#fff;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);border:1.5px dashed var(--border);border-radius:var(--radius)}
+.empty h3{font-size:18px;margin-bottom:6px;color:var(--navy)}
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:30px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer strong{color:#fff}
+@media(max-width:640px){
+  .topbar .regions{display:none}
+  nav.main a{padding:7px 9px;font-size:12.5px}
+  nav.main a:nth-child(n+5){display:none}
+  header.nav .wrap{gap:10px}
+  .brand .sub{display:none}
+  .controls{position:static}
+}
+</style>
+</head>
+<body data-od-id="page-toolbox">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a href="dashboard.html">Overview</a>
+      <a class="on" href="toolbox.html">Toolbox</a>
+      <a href="usage.html">Usage</a>
+      <a href="admin.html">Lead Quality</a>
+      <a class="cta" href="login.html">Login</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pagehead" data-od-id="page-head">
+  <div class="wrap">
+    <div>
+      <h1>Toolbox</h1>
+      <div class="sub">Sales weapons built into the platform — client-ready deliverables generated from real HubSpot, GA4, GSC, PageSpeed and Ahrefs data. Search by name, description, category or owner.</div>
+    </div>
+    <span class="count" id="tool-count">23 tools</span>
+  </div>
+</div>
+
+<div class="controls" data-od-id="tool-controls">
+  <div class="wrap">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Search tools by name, description, category or owner…" autocomplete="off">
+    </div>
+    <div class="chips" id="cats">
+      <button class="on" data-cat="all">All</button>
+      <button data-cat="Sales">Sales</button>
+      <button data-cat="SEO Research">SEO Research</button>
+      <button data-cat="SEO Technical">SEO Technical</button>
+      <button data-cat="Content">Content</button>
+      <button data-cat="Operations">Operations</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap" id="results">
+    <section class="cat" data-cat="Sales" data-od-id="cat-sales">
+      <div class="cathead"><span class="bar" style="background:var(--cat-sales)"></span><h2>Sales</h2><span class="cnt">7 tools</span></div>
+      <div class="grid"></div>
+    </section>
+    <section class="cat" data-cat="SEO Research" data-od-id="cat-research">
+      <div class="cathead"><span class="bar" style="background:var(--cat-research)"></span><h2>SEO Research</h2><span class="cnt">6 tools</span></div>
+      <div class="grid"></div>
+    </section>
+    <section class="cat" data-cat="SEO Technical" data-od-id="cat-technical">
+      <div class="cathead"><span class="bar" style="background:var(--cat-technical)"></span><h2>SEO Technical</h2><span class="cnt">6 tools</span></div>
+      <div class="grid"></div>
+    </section>
+    <section class="cat" data-cat="Content" data-od-id="cat-content">
+      <div class="cathead"><span class="bar" style="background:var(--cat-content)"></span><h2>Content</h2><span class="cnt">3 tools</span></div>
+      <div class="grid"></div>
+    </section>
+    <section class="cat" data-cat="Operations" data-od-id="cat-ops">
+      <div class="cathead"><span class="bar" style="background:var(--cat-ops)"></span><h2>Operations</h2><span class="cnt">1 tool</span></div>
+      <div class="grid"></div>
+    </section>
+  </div>
+</main>
+
+<footer data-od-id="page-footer">
+  <div class="wrap">
+    <div><strong>FirstPage Hong Kong</strong> — AI &amp; Automation Team · Led by Glass Chan</div>
+    <div><a href="dashboard.html" style="color:#fff">Dashboard</a> · <a href="usage.html" style="color:#fff">Usage</a></div>
+  </div>
+</footer>
+
+<script>
+const ICONS={
+  "AI Visibility Scanner":'<path d="M12 2l2.4 6.2L21 9l-5 4.4L17.5 20 12 16.4 6.5 20 8 13.4 3 9l6.6-.8z"/>',
+  "Competitor Profiler":'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/><path d="M12 2v20"/>',
+  "Content Brief Generator":'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/>',
+  "Core Web Vitals Batch":'<path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18H5a2 2 0 0 1-2-2v-4m18 0v4a2 2 0 0 1-2 2h-4M3 12h18"/>',
+  "GA4 Traffic Snapshot":'<path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/>',
+  "GSC Query Explorer":'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v3l2 2"/>',
+  "Keyword Gap Analyzer":'<circle cx="8" cy="8" r="5"/><circle cx="16" cy="16" r="5"/><path d="M10.5 10.5l3 3M13.5 10.5l-3 3"/>',
+  "Lead Scorer":'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+  "Meeting Prep Brief":'<path d="M9 2h6a1 1 0 0 1 1 1v3H8V3a1 1 0 0 1 1-1z"/><path d="M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z"/><path d="M12 11v4M10 13h4"/>',
+  "Meta Tag Generator":'<path d="M8 12h8M8 8h5M8 16h3"/><rect x="3" y="4" width="18" height="16" rx="2"/>',
+  "Mobile vs Desktop PSI":'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
+  "Monthly SEO Report":'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M8 15h2M12 15h2M16 15h2M8 18h2M12 18h2"/>',
+  "Pipeline Pulse":'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  "Pitch Deck Generator":'<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/><path d="M7 11l3-3 2 2 3-4"/>',
+  "Proposal Generator":'<path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+  "PageSpeed Auditor":'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+  "Schema Markup Generator":'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 5v2M15 5v2M9 17v2M15 17v2M5 9h2M5 15h2M17 9h2M17 15h2"/>',
+  "SEO ROI Estimator":'<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/><path d="M15 7h4v4"/>',
+  "SERP Landscape":'<path d="M3 12h4l2-7 4 14 2-7h4"/>',
+  "Lead Spam Report":'<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/>',
+  "Tool Usage Stats":'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+  "URL Inspector":'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/>',
+  "FAQ Schema Generator":'<path d="M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.7v.5"/><circle cx="12" cy="18" r=".5"/><rect x="3" y="3" width="18" height="18" rx="2"/>'
+};
+const CATCOLOR={Sales:'var(--cat-sales)',"SEO Research":'var(--cat-research)',"SEO Technical":'var(--cat-technical)',Content:'var(--cat-content)',Operations:'var(--cat-ops)'};
+const CATBG={Sales:'oklch(0.69 0.20 24 / 0.10)',"SEO Research":'oklch(0.62 0.16 250 / 0.10)',"SEO Technical":'oklch(0.44 0.12 256 / 0.10)',Content:'oklch(0.72 0.15 75 / 0.14)',Operations:'oklch(0.55 0.14 152 / 0.12)'};
+const TOOLS=[
+{slug:"pitch-deck",name:"Pitch Deck Generator",cat:"Sales",owner:"Glass Chan",desc:"Generate a client-ready pitch deck from a brief, with live PSI + competitor data."},
+{slug:"proposal",name:"Proposal Generator",cat:"Sales",owner:"Glass Chan",desc:"Draft a full proposal from the same client brief — one pipeline, proposal template."},
+{slug:"meeting-prep",name:"Meeting Prep Brief",cat:"Sales",owner:"FirstPage Team",desc:"One-click client meeting brief — GSC, GA4, PageSpeed and Ahrefs data distilled into talking points, questions and recommendations."},
+{slug:"monthly-report",name:"Monthly SEO Report",cat:"Sales",owner:"FirstPage Team",desc:"Auto-generate a client-ready monthly SEO report — GSC, GA4, PageSpeed and AI visibility data narrated into sections you can send."},
+{slug:"pipeline-pulse",name:"Pipeline Pulse",cat:"Sales",owner:"FirstPage Team",desc:"The sales pipeline in one view — new deals, open pipeline value, closed-won revenue and the per-owner leaderboard."},
+{slug:"lead-scorer",name:"Lead Scorer",cat:"Sales",owner:"FirstPage Team",desc:"Score the newest HubSpot leads hot/warm/cold — email reputation, mailbox type and website signals, with the reasons."},
+{slug:"spam-report",name:"Lead Spam Report",cat:"Sales",owner:"FirstPage Team",desc:"How much of your inbound lead flow is junk — spam rate, categories, worst-source domains and misclassified real leads."},
+{slug:"seo-roi",name:"SEO ROI Estimator",cat:"Sales",owner:"FirstPage Team",desc:"Turn keyword volumes and your average deal value into a defensible traffic / leads / revenue estimate — with the assumptions spelled out."},
+{slug:"ga4-snapshot",name:"GA4 Traffic Snapshot",cat:"SEO Research",owner:"FirstPage Team",desc:"30-day traffic snapshot for any GA4 property — active users, sessions, and the daily trend."},
+{slug:"gsc-explorer",name:"GSC Query Explorer",cat:"SEO Research",owner:"FirstPage Team",desc:"Explore organic search queries for any client site — clicks, impressions, CTR, position — with click and keyword filters."},
+{slug:"keyword-gap",name:"Keyword Gap Analyzer",cat:"SEO Research",owner:"FirstPage Team",desc:"Two domains side by side — the keywords one ranks for that the other is missing, with volumes. Classic opportunity mining."},
+{slug:"competitor-profiler",name:"Competitor Profiler",cat:"SEO Research",owner:"FirstPage Team",desc:"Top organic keywords for any competitor domain — the search terms they rank for, with volumes."},
+{slug:"serp-landscape",name:"SERP Landscape",cat:"SEO Research",owner:"FirstPage Team",desc:"Where a site actually ranks — position-bucket distribution plus the top queries by impressions."},
+{slug:"ai-visibility",name:"AI Visibility Scanner",cat:"SEO Research",owner:"FirstPage Team",desc:"How often a domain gets cited in AI search answers — ChatGPT, Perplexity, Gemini, Copilot and Google AI Overviews."},
+{slug:"url-inspector",name:"URL Inspector",cat:"SEO Technical",owner:"FirstPage Team",desc:"One-stop URL diagnosis: Google index status, canonical, mobile usability and rich results — plus the PageSpeed score."},
+{slug:"psi-auditor",name:"PageSpeed Auditor",cat:"SEO Technical",owner:"FirstPage Team",desc:"Run a PageSpeed Insights audit on any URL — performance score, LCP and CLS for a quick mobile health check."},
+{slug:"mobile-desktop-psi",name:"Mobile vs Desktop PSI",cat:"SEO Technical",owner:"FirstPage Team",desc:"Compare PageSpeed scores for the same URL on mobile and desktop side by side."},
+{slug:"cwv-batch",name:"Core Web Vitals Batch",cat:"SEO Technical",owner:"FirstPage Team",desc:"Audit up to 10 URLs at once — performance score, LCP and CLS side by side to spot the slow pages."},
+{slug:"schema-generator",name:"Schema Markup Generator",cat:"SEO Technical",owner:"FirstPage Team",desc:"JSON-LD structured data for FAQ, Article, LocalBusiness, Product or BreadcrumbList — generated from a URL or keyword."},
+{slug:"faq-schema-generator",name:"FAQ Schema Generator",cat:"SEO Technical",owner:"FirstPage Team",desc:"Standalone FAQ structured-data generator, hosted externally — the fast path to FAQ JSON-LD.",external:"https://faq-generator.firstpage.com.hk"},
+{slug:"content-brief",name:"Content Brief Generator",cat:"Content",owner:"FirstPage Team",desc:"From a target keyword to a writer-ready brief — search intent, audience, outline, word count and FAQ ideas."},
+{slug:"meta-generator",name:"Meta Tag Generator",cat:"Content",owner:"FirstPage Team",desc:"SEO titles and meta descriptions for a whole keyword list at once — on-brand, click-worthy, production-ready."},
+{slug:"tool-usage",name:"Tool Usage Stats",cat:"Operations",owner:"FirstPage Team",desc:"Who is using the toolbox — runs per tool, active users and LLM cost, all-time or in a window."}
+];
+// render
+const grids=document.querySelectorAll('section.cat .grid');
+TOOLS.forEach(t=>{
+  const wrap=document.querySelector(`section.cat[data-cat="${t.cat}"] .grid`);
+  const el=document.createElement('a');
+  el.className='tcard';
+  el.href=t.external||`tools.html?slug=${t.slug}`;
+  el.target=t.external?'_blank':'_self';
+  el.dataset.name=t.name.toLowerCase();el.dataset.desc=t.desc.toLowerCase();el.dataset.owner=t.owner.toLowerCase();el.dataset.cat=t.cat;
+  el.dataset.odId=`tool-card-${t.slug}`;
+  el.innerHTML=`
+    <div class="top">
+      <span class="tile" style="background:${CATBG[t.cat]};color:${CATCOLOR[t.cat]}"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[t.name]||ICONS["Tool Usage Stats"]}</svg></span>
+      <h3>${t.name}</h3>
+    </div>
+    <p>${t.desc}</p>
+    <div class="foot">
+      <span class="cat" style="color:${CATCOLOR[t.cat]};background:${CATBG[t.cat]}">${t.cat}</span>
+      ${t.external?'<span class="ext">External</span>':''}
+      <span class="owner">${t.owner}</span>
+    </div>`;
+  wrap.appendChild(el);
+});
+// filter
+const q=document.getElementById('q'),cats=document.getElementById('cats'),count=document.getElementById('tool-count');
+function apply(){
+  const term=q.value.trim().toLowerCase(),cat=cats.querySelector('.on').dataset.cat;
+  let visible=0;
+  document.querySelectorAll('.tcard').forEach(c=>{
+    const okCat=cat==='all'||c.dataset.cat===cat;
+    const okTerm=!term||c.dataset.name.includes(term)||c.dataset.desc.includes(term)||c.dataset.owner.includes(term)||c.dataset.cat.toLowerCase().includes(term);
+    const show=okCat&&okTerm;c.style.display=show?'':'none';if(show)visible++;
+  });
+  document.querySelectorAll('section.cat').forEach(s=>{
+    const has=s.querySelectorAll('.tcard').length&&Array.from(s.querySelectorAll('.tcard')).some(c=>c.style.display!=='none');
+    s.style.display=(cat==='all'||s.dataset.cat===cat)&&has?'':'none';
+  });
+  count.textContent=`${visible} tool${visible===1?'':'s'}`;
+  let empty=document.querySelector('.empty');
+  if(!visible){if(!empty){empty=document.createElement('div');empty.className='empty';empty.innerHTML='<h3>No tools match</h3><p>Try a different search or category.</p>';}document.getElementById('results').appendChild(empty);}
+  else if(empty)empty.remove();
+}
+q.addEventListener('input',apply);
+cats.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  cats.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');apply();
+});
+apply();
+</script>
+</body>
+</html>

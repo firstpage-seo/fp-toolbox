@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "tools.html",
+  "entry": "tools.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-08-10T22:29:33.818Z",
+  "updatedAt": "2026-08-10T22:29:33.818Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

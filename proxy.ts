@@ -25,17 +25,17 @@ export async function proxy(request: NextRequest) {
     : request.cookies.get("fp-auth")?.value;
   const isLoggedIn = Boolean(await getSessionUser(cookieValue));
 
-  // Sign-in remains public; the performance report requires a valid session.
-  if (pathname === "/login") {
+  // Public paths
+  if (pathname === "/toolbox" || pathname === "/login") {
     if (isLoggedIn && pathname === "/login") {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
 
-  // Send unauthenticated visitors to sign-in.
+  // Not logged in → toolbox
   if (!isLoggedIn) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/toolbox", request.url));
   }
 
   return NextResponse.next();

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tool Workspace — FirstPage HK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --green:oklch(0.55 0.14 152);
+  --amber:oklch(0.72 0.15 75);
+  --rose:oklch(0.62 0.20 22);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-mono:"SFMono-Regular",ui-monospace,Menlo,monospace;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+  --radius:14px;
+  --cat-sales:oklch(0.69 0.20 24);
+  --cat-research:oklch(0.62 0.16 250);
+  --cat-technical:oklch(0.44 0.12 256);
+  --cat-content:oklch(0.72 0.15 75);
+  --cat-ops:oklch(0.55 0.14 152);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--surface);color:var(--fg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.15;color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.topbar{background:var(--navy);color:#fff;font-size:12px;letter-spacing:0.02em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:7px;padding-bottom:7px}
+.topbar .regions{display:flex;gap:14px;opacity:.7}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display)}
+.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.08em}
+.brand .name{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff}
+nav.main a.cta:hover{filter:brightness(1.05)}
+/* page head */
+.pagehead{background:var(--grad-banner);color:#fff;padding:30px 0 32px}
+.pagehead .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.ph-tile{width:52px;height:52px;border-radius:13px;background:oklch(1 0 0 / 0.14);border:1px solid oklch(1 0 0 / 0.25);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.ph-tile svg{width:26px;height:26px;stroke:currentColor}
+.pagehead h1{color:#fff;font-size:clamp(22px,2.8vw,30px);font-weight:800;letter-spacing:-0.015em}
+.pagehead .sub{color:oklch(0.93 0.02 250);font-size:13.5px;margin-top:3px;max-width:62ch}
+.ph-meta{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.ph-meta .chip{background:oklch(1 0 0 / 0.14);border:1px solid oklch(1 0 0 / 0.22);color:#fff;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;letter-spacing:.04em}
+/* layout */
+main{max-width:1200px;margin:0 auto;padding:28px 24px 64px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.rail{display:flex;flex-direction:column;gap:18px;position:sticky;top:84px}
+/* form card */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card .hd{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--border)}
+.card .hd h3{font-size:15px;font-weight:800}
+.card .hd .tag{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.card .bd{padding:20px}
+.tag.sales{background:oklch(0.69 0.20 24 / 0.10);color:var(--cat-sales)}
+.tag.research{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+.tag.technical{background:oklch(0.44 0.12 256 / 0.10);color:var(--cat-technical)}
+.tag.content{background:oklch(0.72 0.15 75 / 0.14);color:oklch(0.5 0.13 75)}
+.tag.ops{background:oklch(0.55 0.14 152 / 0.12);color:oklch(0.42 0.13 152)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fgrid .full{grid-column:1/-1}
+.field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.02em;color:var(--navy);margin-bottom:6px}
+.field label .req{color:var(--accent)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:14px;color:var(--fg);background:var(--bg);transition:border-color .12s,box-shadow .12s}
+.field textarea{resize:vertical;min-height:84px;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px oklch(0.62 0.16 250 / 0.15)}
+.field .help{font-size:11.5px;color:var(--muted);margin-top:5px}
+.form-actions{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:14.5px;letter-spacing:.02em;border-radius:10px;padding:12px 24px;border:1px solid transparent;cursor:pointer;min-height:46px;transition:transform .12s,filter .12s;background:var(--grad-cta);color:#fff;box-shadow:0 5px 14px oklch(0.62 0.19 22 / 0.3)}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.btn.sec{background:#fff;border-color:var(--border);color:var(--navy);box-shadow:none}
+.btn.sec:hover{border-color:var(--blue);color:var(--blue-600)}
+.counter{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--muted)}
+.counter b{color:var(--blue-600)}
+/* refine */
+.refine{display:flex;gap:10px;margin-top:14px}
+.refine input{flex:1;border:1px solid var(--border);border-radius:9px;padding:10px 13px;font-size:13.5px;font-family:var(--font-body)}
+.refine input:focus{outline:none;border-color:var(--blue)}
+/* links out */
+.outlinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.outlinks .l{font-size:12.5px;font-weight:700;color:var(--blue-600);background:oklch(0.62 0.16 250 / 0.08);border:1px solid oklch(0.62 0.16 250 / 0.25);padding:6px 12px;border-radius:999px}
+.outlinks .l:hover{background:oklch(0.62 0.16 250 / 0.16);text-decoration:none}
+/* result */
+#result{display:none}
+#result.show{display:block}
+.res-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.res-head h3{font-size:15.5px;font-weight:800}
+.res-head .ok{margin-left:auto;font-size:11.5px;font-weight:800;color:oklch(0.42 0.13 152);background:oklch(0.55 0.14 152 / 0.12);padding:5px 12px;border-radius:999px;letter-spacing:.05em}
+.res-head .cost{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.rstat{background:oklch(0.965 0 0 / 0.7);border:1px solid var(--border);border-radius:11px;padding:13px 15px}
+.rstat .l{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.rstat .v{font-family:var(--font-display);font-size:21px;font-weight:800;color:var(--navy);margin-top:5px;letter-spacing:-0.01em}
+.rstat .s{font-size:12px;color:var(--muted);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1.5px solid var(--border)}
+td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+td b{color:var(--navy)}
+.slides{display:flex;flex-direction:column;gap:12px}
+.slide{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.slide .sh{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--grad-banner);color:#fff;font-weight:800;font-size:13.5px}
+.slide .sb{padding:16px}
+.slide .sb h4{font-size:15px;font-weight:800;margin-bottom:8px}
+.slide .sb ul{margin:0;padding-left:20px}
+.slide .sb li{font-size:13.5px;padding:2.5px 0;color:#444}
+.secblock{margin-bottom:16px}
+.secblock h4{font-size:14.5px;font-weight:800;margin-bottom:8px;color:var(--navy)}
+.secblock p{font-size:13.5px;color:#444;line-height:1.6;margin-bottom:8px}
+.secblock ul{margin:0;padding-left:20px}
+.secblock li{font-size:13.5px;color:#444;padding:2px 0}
+pre.code{background:var(--navy);color:oklch(0.92 0.02 250);border-radius:11px;padding:16px;font-family:var(--font-mono);font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre-wrap}
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.score{margin-bottom:10px}
+.score .ttl{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:5px}
+.score .ttl .v{font-family:var(--font-mono)}
+.score .tr{height:9px;background:var(--surface);border-radius:5px;overflow:hidden}
+.score .fl{height:100%;border-radius:5px}
+.note-bar{font-size:12.5px;color:var(--muted);background:oklch(0.965 0 0 / .7);border:1px dashed var(--border);border-radius:10px;padding:10px 14px;margin-top:14px}
+/* history */
+.history li{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.history li:hover{background:oklch(0.62 0.16 250 / 0.05)}
+.history li:last-child{border-bottom:0}
+.history .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.history .who{flex:1;min-width:0}
+.history .who b{display:block;font-size:13px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history .who span{font-size:11.5px;color:var(--muted)}
+.history .cost{font-size:11.5px;font-family:var(--font-mono);color:var(--muted);flex-shrink:0}
+.empty-rail{font-size:13px;color:var(--muted);padding:14px 16px;line-height:1.5}
+/* hubspot rail */
+.lead-row{display:flex;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:flex-start}
+.lead-row:last-child{border-bottom:0}
+.lead-row .av{width:32px;height:32px;border-radius:50%;background:var(--grad-banner);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0}
+.lead-row .info{flex:1;min-width:0}
+.lead-row .info b{display:block;font-size:13px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lead-row .info span{font-size:11.5px;color:var(--muted)}
+.badge{font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:999px;flex-shrink:0}
+.badge.hot{background:oklch(0.55 0.14 152 / 0.15);color:oklch(0.42 0.13 152)}
+.badge.warm{background:oklch(0.72 0.15 75 / 0.2);color:oklch(0.5 0.13 75)}
+.badge.cold{background:oklch(0.62 0.20 22 / 0.1);color:var(--rose)}
+.importbtn{width:100%;border:1.5px dashed var(--blue);color:var(--blue-600);background:oklch(0.62 0.16 250 / 0.05);border-radius:10px;padding:11px;font-family:var(--font-display);font-weight:700;font-size:13px;cursor:pointer;margin-top:6px}
+.importbtn:hover{background:oklch(0.62 0.16 250 / 0.12)}
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:28px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer strong{color:#fff}
+@media(max-width:960px){
+  main{grid-template-columns:1fr}
+  .rail{position:static}
+}
+@media(max-width:640px){
+  .topbar .regions{display:none}
+  nav.main a{padding:7px 9px;font-size:12.5px}
+  nav.main a:nth-child(n+5){display:none}
+  header.nav .wrap{gap:10px}
+  .brand .sub{display:none}
+  .fgrid{grid-template-columns:1fr}
+  .ph-meta{margin-left:0}
+}
+</style>
+</head>
+<body data-od-id="page-tool-workspace">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a href="dashboard.html">Overview</a>
+      <a href="toolbox.html">Toolbox</a>
+      <a href="usage.html">Usage</a>
+      <a href="admin.html">Lead Quality</a>
+      <a class="cta" href="login.html">Login</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pagehead" id="ph" data-od-id="tool-head"></div>
+
+<main>
+  <div class="col">
+    <div class="card" data-od-id="tool-form-card">
+      <div class="hd"><h3 id="form-title">Inputs</h3><span class="tag" id="form-tag">Sales</span></div>
+      <div class="bd">
+        <div class="fgrid" id="fields"></div>
+        <div class="form-actions">
+          <button class="btn" id="gen-btn">Generate</button>
+          <button class="btn sec" id="reset-btn">Clear</button>
+          <span class="counter" id="url-count"></span>
+        </div>
+        <div class="refine" id="refine-bar" style="display:none">
+          <input id="refine-in" placeholder="Refine the output — e.g. make it more conservative on projections…">
+          <button class="btn sec" id="refine-btn">Refine</button>
+        </div>
+        <div class="outlinks" id="outlinks"></div>
+      </div>
+    </div>
+
+    <div class="card" id="result" data-od-id="tool-result">
+      <div class="hd">
+        <h3 id="res-title">Output</h3>
+        <span class="ok" id="res-ok">Generated</span>
+        <span class="cost" id="res-cost"></span>
+      </div>
+      <div class="bd" id="res-body"></div>
+    </div>
+  </div>
+
+  <aside class="rail" data-od-id="tool-rail">
+    <div class="card" data-od-id="rail-hubspot">
+      <div class="hd"><h3>Recent leads</h3><span class="tag sales" style="margin-left:auto">HubSpot · 7d</span></div>
+      <div id="lead-list"></div>
+      <div class="bd" style="padding-top:8px"><button class="importbtn" id="import-btn">Import from HubSpot</button></div>
+    </div>
+    <div class="card" data-od-id="rail-history">
+      <div class="hd"><h3>Previous outputs</h3><span class="tag technical" style="margin-left:auto">history</span></div>
+      <ul class="history" id="history"></ul>
+    </div>
+  </aside>
+</main>
+
+<footer data-od-id="page-footer">
+  <div class="wrap">
+    <div><strong>FirstPage Hong Kong</strong> — AI &amp; Automation Team · Led by Glass Chan</div>
+    <div><a href="toolbox.html" style="color:#fff">← All tools</a></div>
+  </div>
+</footer>
+
+<script>
+/* ---------- tool registry: fields, kind, sample output ---------- */
+const TOOLS={
+"pitch-deck":{name:"Pitch Deck Generator",cat:"Sales",kind:"llm",owner:"Glass Chan",icon:'<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/><path d="M7 11l3-3 2 2 3-4"/>',
+ desc:"Generate a client-ready pitch deck from a brief, with live PSI + competitor data.",
+ fields:[
+  {id:"clientName",label:"Client name",ph:"Acme Ltd",req:1},
+  {id:"industry",label:"Industry",ph:"e.g. Financial Services",req:1},
+  {id:"objective",label:"Objective",ph:"e.g. Lead Generation (B2B)",req:1},
+  {id:"targetMarket",label:"Target market",ph:"e.g. Hong Kong, Singapore"},
+  {id:"budget",label:"Budget",ph:"e.g. HKD 50k/month"},
+  {id:"clientWebsite",label:"Client website",ph:"https://… (enables PSI + competitor data)"},
+  {id:"notes",label:"Notes",ph:"Anything else we should know",full:1}
+ ],
+ links:["proposal","meeting-prep"],
+ sample:{type:"deck",title:"Acme Ltd — Revenue Growth Proposal",stats:[["Deal value","HK$50k/mo"],["Pipeline","3-6 mo"],["PSI score","68"],["Competitors","4 tracked"]],
+  slides:[
+   {t:"The Opportunity",b:["Your site ranks for 42 keywords with commercial intent but converts at 1.2% — under the 2.4% category benchmark.","Mobile PageSpeed (68/100) is costing you ~31% of mobile traffic before it loads.","Competitors in your niche average 3.1x more organic visibility on head terms."]},
+   {t:"Our Approach",b:["Technical SEO sprint: CWV fixes, indexation cleanup, internal-link architecture.","Content engine around 18 high-intent keywords identified in the gap analysis.","Quarterly reporting against organic sessions, leads and pipeline attribution."]},
+   {t:"The Numbers",b:["Projected +128% organic sessions in 12 months (modelled on Harbour Retail 3.2x ROAS case).","Target: 62 keywords in top 3 within 2 quarters.","ROI framework tied to closed-won revenue, not vanity metrics."]}]}},
+"proposal":{name:"Proposal Generator",cat:"Sales",kind:"llm",owner:"Glass Chan",icon:'<path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+ desc:"Draft a full proposal from the same client brief — one pipeline, proposal template.",
+ fields:[
+  {id:"clientName",label:"Client name",ph:"Acme Ltd",req:1},
+  {id:"industry",label:"Industry",ph:"e.g. Financial Services",req:1},
+  {id:"objective",label:"Objective",ph:"e.g. Lead Generation (B2B)",req:1},
+  {id:"targetMarket",label:"Target market",ph:"e.g. Hong Kong, Singapore"},
+  {id:"budget",label:"Budget",ph:"e.g. HKD 50k/month"},
+  {id:"clientWebsite",label:"Client website",ph:"https://… (enables PSI + competitor data)"},
+  {id:"notes",label:"Notes",ph:"Anything else we should know",full:1}
+ ],
+ links:["pitch-deck"],
+ sample:{type:"sections",title:"Proposal: Acme Ltd — Digital Growth Programme",sections:[
+  {h:"Executive Summary",p:"This proposal outlines a 12-month digital growth programme for Acme Ltd, built on the audit findings from your current site: strong brand search, weak commercial conversion, and mobile performance below benchmark."},
+  {h:"Scope of Work",ul:["Technical SEO & Core Web Vitals remediation","Content programme around 18 high-intent keywords","Monthly performance reporting with pipeline attribution"]},
+  {h:"Investment",p:"HK$50,000 per month, billed monthly. No lock-in beyond a 90-day minimum. Includes dedicated account management and all tooling."}]}},
+"meeting-prep":{name:"Meeting Prep Brief",cat:"Sales",kind:"llm",owner:"FirstPage Team",icon:'<path d="M9 2h6a1 1 0 0 1 1 1v3H8V3a1 1 0 0 1 1-1z"/><path d="M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z"/><path d="M12 11v4M10 13h4"/>',
+ desc:"One-click client meeting brief — GSC, GA4, PageSpeed and Ahrefs data distilled into talking points, questions and recommendations.",
+ fields:[
+  {id:"clientWebsite",label:"Client website",ph:"client-site.com.hk",req:1,list:["harbour-retail.com","zenith-finance.hk","bluebay-logistics.com","acme.com.hk"]},
+  {id:"clientName",label:"Client name",ph:"Acme Ltd",req:1},
+  {id:"meetingFocus",label:"Meeting focus (optional)",ph:"e.g. renew contract, review Q3 performance"}
+ ],
+ links:["proposal","pitch-deck"],
+ sample:{type:"brief",title:"Meeting Prep — Acme Ltd",stats:[["Organic clicks","+9.8%"],["Avg position","9.7"],["PageSpeed","72"],["Leads (30d)","1,284"]],
+  findings:[{k:"Traffic",v:"Organic sessions up 14.2% — strongest week was the third; driven by the blog refresh on commercial head terms."},{k:"Rankings",v:"3 keywords lost top-10 positions after the refresh — 'seo agency hong kong' dropped 4 spots."},{k:"Speed",v:"LCP at 2.9s on mobile; hero images are the main culprit. Fast win available."}],
+  talk:["Lead with the wins: traffic and clicks both up double digits since the last review.","Flag the 3 slipped keywords and the LCP fix as the two action items to agree on.","Ask about budget cycle for Q4 before presenting the ROI model."],
+  rec:["Compress hero images (target LCP ≤ 2.0s).","Refresh the 3 slipped landing pages against new SERP intents.","Add the 4 misjudged leads to the nurture sequence."]}},
+"monthly-report":{name:"Monthly SEO Report",cat:"Sales",kind:"llm",owner:"FirstPage Team",icon:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M8 15h2M12 15h2M16 15h2M8 18h2M12 18h2"/>',
+ desc:"Auto-generate a client-ready monthly SEO report — GSC, GA4, PageSpeed and AI visibility data narrated into sections you can send.",
+ fields:[
+  {id:"clientWebsite",label:"Client website",ph:"client-site.com.hk",req:1,list:["harbour-retail.com","zenith-finance.hk","bluebay-logistics.com"]},
+  {id:"clientName",label:"Client name",ph:"Acme Ltd",req:1},
+  {id:"period",label:"Reporting period",ph:"e.g. July 2026"}
+ ],
+ links:["proposal"],
+ sample:{type:"sections",title:"July 2026 SEO Report — Acme Ltd",sections:[
+  {h:"Executive Summary",p:"Organic performance improved across the board in July. Sessions rose 14.2% month-on-month, clicks grew 9.8%, and average position improved from 11.4 to 9.7. Two of the three priority keywords entered the top 5."},
+  {h:"Search Performance",ul:["412,806 total impressions (+11.3%)","36,204 clicks (+9.8%)","8.8% average CTR (+0.6pp)","9.7 average position (was 11.4)"]},
+  {h:"Technical Health",p:"PageSpeed improved to 72/100 on mobile after the image compression pass. LCP dropped from 3.4s to 2.9s; next target is 2.0s."},
+  {h:"AI Visibility",p:"186 total AI citations this month, led by ChatGPT (58). Visibility in AI answers is growing faster than classic SERP share."}]}},
+"pipeline-pulse":{name:"Pipeline Pulse",cat:"Sales",kind:"data",owner:"FirstPage Team",icon:'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+ desc:"The sales pipeline in one view — new deals, open pipeline value, closed-won revenue and the per-owner leaderboard.",
+ fields:[{id:"window",label:"Window",type:"select",opts:["7 days","30 days","90 days"]}],
+ sample:{type:"stats",title:"Pipeline Pulse — 30 days",stats:[["New deals","14"],["Open pipeline","HK$2.84M"],["Closed-won","HK$418k · 9 deals"],["Avg deal size","HK$90k"]],
+  table:{head:["Owner","Won","Revenue","Open"],rows:[["Fei Chen","4","HK$182k","HK$960k"],["Marcus Lo","3","HK$116k","HK$720k"],["Priya Sharma","1","HK$74k","HK$640k"],["Kenji Wong","1","HK$46k","HK$520k"]]}}},
+"lead-scorer":{name:"Lead Scorer",cat:"Sales",kind:"data",owner:"FirstPage Team",icon:'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+ desc:"Score the newest HubSpot leads hot/warm/cold — email reputation, mailbox type and website signals, with the reasons.",
+ fields:[{id:"window",label:"Window",type:"select",opts:["1 day","3 days","7 days","14 days","30 days"]}],
+ sample:{type:"stats",title:"Lead scores — last 7 days",stats:[["Hot (≥75)","128"],["Warm (≥50)","342"],["Cold (<50)","214"]],
+  table:{head:["Lead","Score","Reasons"],rows:[["alex@harbour-retail.com","71","corporate domain · https website"],["m.wong@zenith-finance.hk","68","named mailbox · valid MX"],["sara@bluebay-logistics.com","64","company site verified"],["jim@seo-packages.info","22","free email · no website"]]}}},
+"spam-report":{name:"Lead Spam Report",cat:"Sales",kind:"data",owner:"FirstPage Team",icon:'<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/>',
+ desc:"How much of your inbound lead flow is junk — spam rate, categories, worst-source domains and misclassified real leads.",
+ fields:[{id:"window",label:"Window",type:"select",opts:["7 days","14 days","30 days","60 days","90 days"]}],
+ sample:{type:"stats",title:"Lead spam report — 30 days",stats:[["Total contacts","4,012"],["Good leads","2,728"],["Spam","1,284"],["Spam rate","31.8%"]],
+  table:{head:["Spam reason","Share"],rows:[["No website","29%"],["Disposable email","24%"],["Email pasted as website","18%"],["Numeric host (phone no.)","11%"],["FirstPage's own site","7%"]]}}},
+"seo-roi":{name:"SEO ROI Estimator",cat:"Sales",kind:"llm",owner:"FirstPage Team",icon:'<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/><path d="M15 7h4v4"/>',
+ desc:"Turn keyword volumes and your average deal value into a defensible traffic / leads / revenue estimate — with the assumptions spelled out.",
+ fields:[
+  {id:"keywords",label:"Keywords (one per line)",ph:"seo agency hong kong\nlocal seo services hong kong",full:1,req:1},
+  {id:"domain",label:"Domain (optional)",ph:"client-site.com.hk"},
+  {id:"dealValue",label:"Avg deal value (USD)",type:"number",def:10000},
+  {id:"conv",label:"Conversion rate %",type:"number",def:2}
+ ],
+ links:["content-brief","meta-generator"],
+ sample:{type:"stats",title:"SEO ROI Estimate",stats:[["Monthly traffic","24,600"],["Monthly leads","492"],["Monthly revenue","US$4.9M"],["Annual revenue","US$58.9M"]],
+  sections:[{h:"Assumptions",ul:["Combined search volume of your 12 target keywords: 1,230,000/mo","Realistic click-through to position 1-3 average: 2.0%","Site conversion rate: 2% (industry median)","Average deal value: US$10,000"]}]}},
+"ga4-snapshot":{name:"GA4 Traffic Snapshot",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/>',
+ desc:"30-day traffic snapshot for any GA4 property — active users, sessions, and the daily trend.",
+ fields:[
+  {id:"property",label:"GA4 property",ph:"Select property…",req:1,list:["374723776 — FirstPage HK","48291033 — Harbour Retail","55902187 — Zenith Finance","61283455 — BlueBay Logistics"]},
+  {id:"days",label:"Days",type:"select",opts:["7 days","30 days","90 days"]}
+ ],
+ links:["monthly-report"],
+ sample:{type:"stats",title:"GA4 Traffic Snapshot",stats:[["Active users","8,412"],["Sessions","11,206"],["Avg users/day","280"],["Peak day","Tue 18 · 412"]],
+  table:{head:["Metric","Value"],rows:[["Bounce rate","41.6%"],["Engaged sessions","6,912"],["Avg engagement time","2m 41s"],["New users","5,388"]]}}},
+"gsc-explorer":{name:"GSC Query Explorer",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v3l2 2"/>',
+ desc:"Explore organic search queries for any client site — clicks, impressions, CTR, position — with click and keyword filters.",
+ fields:[
+  {id:"site",label:"GSC site",ph:"https://www.firstpage.hk/",req:1,list:["https://www.firstpage.hk/","https://harbour-retail.com/","https://www.zenith-finance.hk/"]},
+  {id:"days",label:"Days",type:"select",opts:["7 days","30 days","90 days"]},
+  {id:"minClicks",label:"Min clicks",type:"number",def:5},
+  {id:"queryContains",label:"Query contains",ph:"e.g. seo (optional)"}
+ ],
+ sample:{type:"stats",title:"GSC Query Explorer",stats:[["Total impressions","412,806"],["Total clicks","36,204"],["Avg CTR","8.8%"],["Avg position","9.7"]],
+  table:{head:["Query","Impr.","Clicks","CTR","Pos."],rows:[["seo agency hong kong","18,204","2,311","12.7%","3.2"],["digital marketing agency hk","12,876","1,544","12.0%","4.1"],["google ads agency hong kong","9,430","1,028","10.9%","5.3"],["local seo services hong kong","7,655","912","11.9%","4.8"]]}}},
+"keyword-gap":{name:"Keyword Gap Analyzer",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<circle cx="8" cy="8" r="5"/><circle cx="16" cy="16" r="5"/><path d="M10.5 10.5l3 3M13.5 10.5l-3 3"/>',
+ desc:"Two domains side by side — the keywords one ranks for that the other is missing, with volumes. Classic opportunity mining.",
+ fields:[
+  {id:"domainA",label:"Domain A (client)",ph:"client-site.com.hk",req:1},
+  {id:"domainB",label:"Domain B (competitor)",ph:"competitor.com",req:1},
+  {id:"country",label:"Country",type:"select",opts:["Hong Kong","United States","Singapore","Australia","United Kingdom","Taiwan","China"]},
+  {id:"perDomain",label:"Per domain",type:"select",opts:["25","50","100","200"]}
+ ],
+ links:["content-brief","meta-generator","seo-roi"],
+ sample:{type:"stats",title:"Keyword Gap — Acme vs Competitor",stats:[["Keywords A ranks for","1,248"],["Keywords B ranks for","2,106"],["Missing from A","614"],["With volume ≥ 100","182"]],
+  table:{head:["Keyword","Volume","A pos.","B pos."],rows:[["ecommerce seo agency","2,350","—","6"],["seo services price hk","1,880","—","8"],["google ads agency","3,800","11","4"],["shopify seo hong kong","1,240","—","9"]]}}},
+"competitor-profiler":{name:"Competitor Profiler",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/><path d="M12 2v20"/>',
+ desc:"Top organic keywords for any competitor domain — the search terms they rank for, with volumes.",
+ fields:[
+  {id:"domain",label:"Competitor domain",ph:"competitor.com",req:1},
+  {id:"country",label:"Country",type:"select",opts:["Hong Kong","United States","Singapore","Australia","United Kingdom","Taiwan","China"]},
+  {id:"limit",label:"Keywords limit",type:"select",opts:["5","10","20","50"]}
+ ],
+ links:["keyword-gap","content-brief","seo-roi"],
+ sample:{type:"stats",title:"Competitor profile",stats:[["Total keywords","2,106"],["Top-10 positions","412"],["Est. monthly traffic","186k"],["Domain rating","68"]],
+  table:{head:["Keyword","Volume","Position"],rows:[["seo agency hong kong","5,400","3"],["digital marketing hk","4,600","5"],["google ads agency","3,800","2"],["seo services hong kong","3,100","4"]]}}},
+"serp-landscape":{name:"SERP Landscape",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<path d="M3 12h4l2-7 4 14 2-7h4"/>',
+ desc:"Where a site actually ranks — position-bucket distribution plus the top queries by impressions.",
+ fields:[
+  {id:"site",label:"GSC site",ph:"https://www.firstpage.hk/",req:1,list:["https://www.firstpage.hk/","https://harbour-retail.com/"]},
+  {id:"days",label:"Days",type:"select",opts:["7 days","30 days","90 days"]}
+ ],
+ links:["gsc-explorer"],
+ sample:{type:"stats",title:"SERP Landscape",stats:[["Total queries","3,142"],["In top 3","186"],["In top 10","1,248"],["Beyond page 1","1,894"]],
+  table:{head:["Position bucket","Queries","Share"],rows:[["1–3","186","5.9%"],["4–10","1,062","33.8%"],["11–20","1,120","35.6%"],["21+","774","24.6%"]]}}},
+"ai-visibility":{name:"AI Visibility Scanner",cat:"SEO Research",kind:"data",owner:"FirstPage Team",icon:'<path d="M12 2l2.4 6.2L21 9l-5 4.4L17.5 20 12 16.4 6.5 20 8 13.4 3 9l6.6-.8z"/>',
+ desc:"How often a domain gets cited in AI search answers — ChatGPT, Perplexity, Gemini, Copilot and Google AI Overviews.",
+ fields:[{id:"domain",label:"Domain",ph:"client-site.com.hk",req:1}],
+ sample:{type:"stats",title:"AI Visibility — firstpage.hk",stats:[["Total citations","186"],["ChatGPT","58"],["Perplexity","41"],["Gemini","37"]],
+  table:{head:["Platform","Citations","Top mentioned page"],rows:[["ChatGPT","58","/seo/"],["Perplexity","41","/resources/"],["Gemini","37","/google-ads/"],["Copilot","32","/who-we-are/"],["AI Overviews","18","/seo/enterprise-seo/"]]}}},
+"url-inspector":{name:"URL Inspector",cat:"SEO Technical",kind:"data",owner:"FirstPage Team",icon:'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/>',
+ desc:"One-stop URL diagnosis: Google index status, canonical, mobile usability and rich results — plus the PageSpeed score.",
+ fields:[
+  {id:"url",label:"URL",ph:"https://client-site.com.hk/page",req:1},
+  {id:"gscSite",label:"GSC site (optional — auto-matched)",ph:"https://client-site.com.hk/"}
+ ],
+ links:["mobile-desktop-psi"],
+ sample:{type:"stats",title:"URL diagnosis",stats:[["Index status","Indexed"],["Canonical","Self"],["Mobile usability","Pass"],["Rich results","None detected"]],
+  sections:[{h:"Findings",ul:["Canonical tag points to itself — clean.","Meta description missing on this URL — snippet will be auto-generated.","2 internal links point here; consider adding from the blog hub."]}]}},
+"psi-auditor":{name:"PageSpeed Auditor",cat:"SEO Technical",kind:"data",owner:"FirstPage Team",icon:'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+ desc:"Run a PageSpeed Insights audit on any URL — performance score, LCP and CLS for a quick mobile health check.",
+ fields:[{id:"url",label:"URL",ph:"https://client-site.com.hk",req:1}],
+ links:["url-inspector","mobile-desktop-psi","pitch-deck"],
+ sample:{type:"scores",title:"PageSpeed Audit — mobile",stats:[["Performance","72/100"],["LCP","2.9 s"],["CLS","0.08"],["FCP","1.6 s"]],
+  scores:[{k:"Performance",v:72,color:"oklch(0.72 0.15 75)"},{k:"Accessibility",v:91,color:"oklch(0.55 0.14 152)"},{k:"Best Practices",v:88,color:"oklch(0.55 0.14 152)"},{k:"SEO",v:96,color:"oklch(0.55 0.14 152)"}]}},
+"mobile-desktop-psi":{name:"Mobile vs Desktop PSI",cat:"SEO Technical",kind:"data",owner:"FirstPage Team",icon:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
+ desc:"Compare PageSpeed scores for the same URL on mobile and desktop side by side.",
+ fields:[{id:"url",label:"URL",ph:"https://client-site.com.hk",req:1}],
+ sample:{type:"compare",title:"Mobile vs Desktop — PSI",stats:[["Mobile perf","72"],["Desktop perf","91"],["Mobile LCP","2.9 s"],["Desktop LCP","1.7 s"]],
+  table:{head:["Metric","Mobile","Desktop"],rows:[["Performance","72","91"],["LCP","2.9 s","1.7 s"],["CLS","0.08","0.04"],["FCP","1.6 s","1.1 s"]]}}},
+"cwv-batch":{name:"Core Web Vitals Batch",cat:"SEO Technical",kind:"data",owner:"FirstPage Team",icon:'<path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18H5a2 2 0 0 1-2-2v-4m18 0v4a2 2 0 0 1-2 2h-4M3 12h18"/>',
+ desc:"Audit up to 10 URLs at once — performance score, LCP and CLS side by side to spot the slow pages.",
+ fields:[{id:"urls",label:"URLs (up to 10, one per line)",ph:"https://client-site.com.hk/\nhttps://client-site.com.hk/seo\nhttps://client-site.com.hk/blog",full:1,req:1}],
+ links:["url-inspector"],
+ sample:{type:"table",title:"Core Web Vitals — batch results",stats:[["URLs checked","3/10"],["Passed","2"],["Needs work","1"]],
+  table:{head:["URL","Perf.","LCP","CLS","Status"],rows:[["client-site.com.hk/","88","1.6 s","0.02","Pass"],["client-site.com.hk/seo","72","2.9 s","0.08","Needs work"],["client-site.com.hk/blog","81","2.1 s","0.05","Pass"]]}}},
+"schema-generator":{name:"Schema Markup Generator",cat:"SEO Technical",kind:"llm",owner:"FirstPage Team",icon:'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 5v2M15 5v2M9 17v2M15 17v2M5 9h2M5 15h2M17 9h2M17 15h2"/>',
+ desc:"JSON-LD structured data for FAQ, Article, LocalBusiness, Product or BreadcrumbList — generated from a URL or keyword.",
+ fields:[
+  {id:"pageUrl",label:"Page URL",ph:"https://client-site.com.hk/faq"},
+  {id:"topic",label:"Topic (if no URL)",ph:"e.g. local seo services hong kong"},
+  {id:"schemaType",label:"Schema type",type:"select",opts:["FAQPage","Article","LocalBusiness","Product","BreadcrumbList"]}
+ ],
+ sample:{type:"code",title:"FAQPage JSON-LD",code:'{\n  "@context": "https://schema.org",\n  "@type": "FAQPage",\n  "mainEntity": [{\n    "@type": "Question",\n    "name": "What is local SEO?",\n    "acceptedAnswer": {"@type": "Answer", "text": "Local SEO optimises your site to rank for searches near your business location."}\n  }, {\n    "@type": "Question",\n    "name": "How long until local SEO results?",\n    "acceptedAnswer": {"@type": "Answer", "text": "Most clients see movement within 8–12 weeks, with compounding gains thereafter."}\n  }]\n}'}},
+"faq-schema-generator":{name:"FAQ Schema Generator",cat:"SEO Technical",kind:"external",owner:"FirstPage Team",icon:'<path d="M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.7v.5"/><circle cx="12" cy="18" r=".5"/><rect x="3" y="3" width="18" height="18" rx="2"/>',
+ desc:"Standalone FAQ structured-data generator, hosted externally — the fast path to FAQ JSON-LD.",external:"https://faq-generator.firstpage.com.hk",
+ fields:[]},
+"onsite-audit":{name:"Onsite SEO Audit",cat:"SEO Technical",kind:"job",owner:"FirstPage Team",icon:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/><path d="M12 7a5 5 0 0 1 0 10"/>',
+ desc:"Full-site SEO audit against the implementation checklist: crawl with browserless, GSC/GA4/PSI/Ahrefs checks, and manual steps flagged for a human.",
+ fields:[]},
+"content-brief":{name:"Content Brief Generator",cat:"Content",kind:"llm",owner:"FirstPage Team",icon:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/>',
+ desc:"From a target keyword to a writer-ready brief — search intent, audience, outline, word count and FAQ ideas.",
+ fields:[
+  {id:"keyword",label:"Target keyword",ph:"local seo services hong kong",req:1},
+  {id:"existingPage",label:"Existing page (optional)",ph:"https://client-site.com.hk/seo"},
+  {id:"tone",label:"Tone",type:"select",opts:["Professional","Friendly","Authoritative","Conversational"]}
+ ],
+ links:["meta-generator","schema-generator"],
+ sample:{type:"brief",title:"Content Brief — local seo services hong kong",stats:[["Search intent","Commercial"],["Target audience","SME owners, HK"],["Word count","1,800–2,200"],["Tone","Authoritative"]],
+  outline:["H1: Local SEO Services in Hong Kong That Rank & Convert","H2: What local SEO actually covers (and what it doesn't)","H2: How we audit a Hong Kong business's local visibility","H2: Case study — Harbour Retail: 3.2x ROAS in one quarter","H2: Local SEO pricing in Hong Kong, explained","H2: FAQ — local SEO questions we hear every week"],
+  faqs:["How long does local SEO take to work in Hong Kong?","What's the difference between local SEO and Google Ads?","Do we need a Google Business Profile?"]}},
+"meta-generator":{name:"Meta Tag Generator",cat:"Content",kind:"llm",owner:"FirstPage Team",icon:'<path d="M8 12h8M8 8h5M8 16h3"/><rect x="3" y="4" width="18" height="16" rx="2"/>',
+ desc:"SEO titles and meta descriptions for a whole keyword list at once — on-brand, click-worthy, production-ready.",
+ fields:[
+  {id:"keywords",label:"Keywords (one per line)",ph:"seo agency hong kong\nlocal seo services hong kong",full:1,req:1},
+  {id:"locale",label:"Locale",type:"select",opts:["en-HK","en-US","en-GB","zh-HK","zh-CN"]}
+ ],
+ sample:{type:"table",title:"Meta tags generated",stats:[["Keywords","2"],["Within 60 chars","2"],["Avg. length","54"]],
+  table:{head:["Keyword","Title","Description"],rows:[["seo agency hong kong","SEO Agency Hong Kong | #1 Rated Digital Marketing | First Page","First Page is Hong Kong's highest rated digital marketing agency. Get a free revenue growth strategy session valued at $21,000+."],["local seo services hong kong","Local SEO Services Hong Kong | Get Found Near You | First Page","Dominate local search in Hong Kong. Our local SEO services put your business on the map — free strategy session available."]]}}},
+"tool-usage":{name:"Tool Usage Stats",cat:"Operations",kind:"data",owner:"FirstPage Team",icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+ desc:"Who is using the toolbox — runs per tool, active users and LLM cost, all-time or in a window.",
+ fields:[{id:"window",label:"Window",type:"select",opts:["All time","7 days","30 days","90 days"]}],
+ sample:{type:"stats",title:"Tool usage — 30 days",stats:[["Total runs","728"],["Active users","14"],["LLM cost","US$146.28"],["Runs / user","52"]],
+  table:{head:["Tool","Runs","Cost (US$)"],rows:[["Meeting Prep Brief","186","18.42"],["Content Brief Generator","142","31.67"],["Pitch Deck Generator","98","42.10"],["SEO ROI Estimator","76","6.83"],["Monthly SEO Report","54","24.95"]]}}}
+};
+const CATS={Sales:"sales",SEO_Research:"research",SEO_Technical:"technical",Content:"content",Operations:"ops"};
+const ICONS={
+"AI Visibility Scanner":'<path d="M12 2l2.4 6.2L21 9l-5 4.4L17.5 20 12 16.4 6.5 20 8 13.4 3 9l6.6-.8z"/>',
+"Competitor Profiler":'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/><path d="M12 2v20"/>',
+"Content Brief Generator":'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/>',
+"Core Web Vitals Batch":'<path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18H5a2 2 0 0 1-2-2v-4m18 0v4a2 2 0 0 1-2 2h-4M3 12h18"/>',
+"GA4 Traffic Snapshot":'<path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/>',
+"GSC Query Explorer":'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v3l2 2"/>',
+"Keyword Gap Analyzer":'<circle cx="8" cy="8" r="5"/><circle cx="16" cy="16" r="5"/><path d="M10.5 10.5l3 3M13.5 10.5l-3 3"/>',
+"Lead Scorer":'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+"Meeting Prep Brief":'<path d="M9 2h6a1 1 0 0 1 1 1v3H8V3a1 1 0 0 1 1-1z"/><path d="M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z"/><path d="M12 11v4M10 13h4"/>',
+"Meta Tag Generator":'<path d="M8 12h8M8 8h5M8 16h3"/><rect x="3" y="4" width="18" height="16" rx="2"/>',
+"Mobile vs Desktop PSI":'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
+"Monthly SEO Report":'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M8 15h2M12 15h2M16 15h2M8 18h2M12 18h2"/>',
+"Pipeline Pulse":'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+"Pitch Deck Generator":'<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/><path d="M7 11l3-3 2 2 3-4"/>',
+"Proposal Generator":'<path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+"PageSpeed Auditor":'<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>',
+"Schema Markup Generator":'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 5v2M15 5v2M9 17v2M15 17v2M5 9h2M5 15h2M17 9h2M17 15h2"/>',
+"SEO ROI Estimator":'<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/><path d="M15 7h4v4"/>',
+"SERP Landscape":'<path d="M3 12h4l2-7 4 14 2-7h4"/>',
+"Lead Spam Report":'<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/>',
+"Tool Usage Stats":'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+"URL Inspector":'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/>',
+"FAQ Schema Generator":'<path d="M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.7v.5"/><circle cx="12" cy="18" r=".5"/><rect x="3" y="3" width="18" height="18" rx="2"/>'
+};
+const CATCOLOR={Sales:'var(--cat-sales)',"SEO Research":'var(--cat-research)',"SEO Technical":'var(--cat-technical)',Content:'var(--cat-content)',Operations:'var(--cat-ops)'};
+const CATBG={Sales:'oklch(0.69 0.20 24 / 0.10)',"SEO Research":'oklch(0.62 0.16 250 / 0.10)',"SEO Technical":'oklch(0.44 0.12 256 / 0.10)',Content:'oklch(0.72 0.15 75 / 0.14)',Operations:'oklch(0.55 0.14 152 / 0.12)'};
+const CATLBL={Sales:"Sales",SEO_Research:"SEO Research",SEO_Technical:"SEO Technical",Content:"Content",Operations:"Operations"};
+/* ---------- state ---------- */
+const params=new URLSearchParams(location.search);
+let slug=params.get('slug')||'meeting-prep';
+let tool=TOOLS[slug]||TOOLS['meeting-prep'];
+let historyCount=0;
+/* ---------- render head ---------- */
+const ph=document.getElementById('ph');
+ph.querySelector('.wrap')?.remove();
+const head=document.createElement('div');head.className='wrap';
+head.innerHTML=`
+  <span class="ph-tile" style="color:${CATCOLOR[tool.cat]}"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[tool.name]||ICONS["Tool Usage Stats"]}</svg></span>
+  <div>
+    <h1>${tool.name}</h1>
+    <div class="sub">${tool.desc}</div>
+  </div>
+  <div class="ph-meta">
+    <span class="chip">${tool.cat}</span>
+    <span class="chip">${tool.owner}</span>
+    ${tool.kind==='llm'?'<span class="chip">LLM · refine</span>':tool.kind==='external'?'<span class="chip">External</span>':tool.kind==='job'?'<span class="chip">Job · audit</span>':'<span class="chip">Live data</span>'}
+  </div>`;
+ph.appendChild(head);
+/* ---------- render fields ---------- */
+const fieldsEl=document.getElementById('fields');
+const tagEl=document.getElementById('form-tag');
+const titleEl=document.getElementById('form-title');
+tagEl.textContent=tool.cat;tagEl.className='tag '+CATS[tool.cat.replace(' ','_')];
+titleEl.textContent=`${tool.name} — inputs`;
+function fieldHTML(f){
+  if(f.type==='select'){
+    return `<div class="field ${f.full?'full':''}"><label for="f-${f.id}">${f.label}${f.req?' <span class="req">*</span>':''}</label>
+      <select id="f-${f.id}">${f.opts.map(o=>`<option>${o}</option>`).join('')}</select></div>`;
+  }
+  if(f.type==='number'){
+    return `<div class="field ${f.full?'full':''}"><label for="f-${f.id}">${f.label}</label>
+      <input id="f-${f.id}" type="number" value="${f.def!==undefined?f.def:''}" placeholder="${f.ph||''}"></div>`;
+  }
+  const tag=f.full?'textarea':'input';
+  const extra=f.list?` list="sites-${f.id}"`:'';
+  const datalist=f.list?`<datalist id="sites-${f.id}">${f.list.map(s=>`<option value="${s}">`).join('')}</datalist>`:'';
+  return `<div class="field ${f.full?'full':''}"><label for="f-${f.id}">${f.label}${f.req?' <span class="req">*</span>':''}</label>
+    <${tag} id="f-${f.id}" ${tag==='input'?`type="text" ${extra}`:''} placeholder="${f.ph||''}"></${tag}>${datalist}</div>`;
+}
+if(tool.external){
+  fieldsEl.innerHTML=`<div class="field full"><p style="font-size:14px;color:var(--muted);line-height:1.6">This tool is hosted externally. Click below to open the standalone generator in a new tab.</p></div>`;
+  document.getElementById('gen-btn').textContent='Open external tool ↗';
+}else if(tool.kind==='job'){
+  fieldsEl.innerHTML=`<div class="field full"><p style="font-size:14px;color:var(--muted);line-height:1.6">Runs a full-site crawl and audit as a background job: 162 checks across 8 sections, with manual steps returned as a to-do list. Open the dedicated audit page to run it.</p></div>`;
+  document.getElementById('gen-btn').textContent='Open audit page ↗';
+}else{
+  fieldsEl.innerHTML=tool.fields.map(fieldHTML).join('');
+}
+const outlinks=document.getElementById('outlinks');
+if(tool.links&&tool.links.length){
+  outlinks.innerHTML='<span style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;align-self:center">Send to →</span>'+
+    tool.links.map(s=>TOOLS[s]?`<a class="l" href="tools.html?slug=${s}">${TOOLS[s].name}</a>`:'').join('');
+}
+/* ---------- actions ---------- */
+const genBtn=document.getElementById('gen-btn');
+const resetBtn=document.getElementById('reset-btn');
+const refineBar=document.getElementById('refine-bar');
+if(tool.kind==='llm')refineBar.style.display='flex';
+if(tool.kind==='external'){
+  genBtn.addEventListener('click',()=>{window.open(tool.external,'_blank');});
+}else if(tool.kind==='job'){
+  genBtn.addEventListener('click',()=>{location.href='onsite-audit.html';});
+}else{
+  genBtn.addEventListener('click',()=>{
+    if(tool.fields.some(f=>f.req)){
+      const missing=tool.fields.some(f=>f.req&&!document.getElementById(`f-${f.id}`).value.trim());
+      if(missing){alert('Please fill in the required fields (marked *).');return;}
+    }
+    genBtn.textContent='Generating…';genBtn.style.opacity='.7';
+    setTimeout(()=>{
+      genBtn.textContent='Generate';genBtn.style.opacity='1';
+      renderResult(tool.sample);
+    },520);
+  });
+}
+resetBtn.addEventListener('click',()=>{
+  document.querySelectorAll('#fields input,#fields select,#fields textarea').forEach(el=>{el.value=el.defaultValue||'';});
+  document.getElementById('result').classList.remove('show');
+});
+document.getElementById('refine-btn').addEventListener('click',()=>{
+  const inp=document.getElementById('refine-in');
+  if(!inp.value.trim())return;
+  inp.value='';alert('Output refined — updated based on your instruction.');
+});
+/* cwv counter */
+const urlCount=document.getElementById('url-count');
+if(slug==='cwv-batch'){
+  const ta=document.getElementById('f-urls');
+  const upd=()=>{const n=ta.value.split('\n').filter(x=>x.trim()).length;urlCount.innerHTML=`<b>${n}</b>/10 URLs`;if(n>=10)ta.style.borderColor='oklch(0.72 0.15 75)';};
+  ta.addEventListener('input',upd);upd();
+}
+/* ---------- result renderer ---------- */
+function statsGrid(s){
+  return `<div class="res-grid">${s.map(x=>`<div class="rstat"><div class="l">${x[0]}</div><div class="v">${x[1]}</div></div>`).join('')}</div>`;
+}
+function renderResult(s){
+  const rb=document.getElementById('res-body');
+  const cost=document.getElementById('res-cost');
+  document.getElementById('res-title').textContent=s.title;
+  cost.textContent= tool.kind==='llm'?`US$${(Math.random()*4+0.4).toFixed(2)}`:'';
+  let html=statsGrid(s.stats||[]);
+  if(s.type==='deck'){
+    html+=`<div class="slides">${s.slides.map(sl=>`<div class="slide"><div class="sh"><span>${sl.t}</span><span>${sl.b.length} pts</span></div><div class="sb"><ul>${sl.b.map(b=>`<li>${b}</li>`).join('')}</ul></div></div>`).join('')}</div>`;
+  }
+  if(s.type==='sections'){
+    html+=s.sections.map(sc=>`<div class="secblock"><h4>${sc.h}</h4>${sc.p?`<p>${sc.p}</p>`:''}${sc.ul?`<ul>${sc.ul.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}</div>`).join('');
+  }
+  if(s.type==='brief'){
+    if(s.findings)html+=`<div class="secblock"><h4>Key findings</h4>${s.findings.map(f=>`<p><b>${f.k}:</b> ${f.v}</p>`).join('')}</div>`;
+    if(s.talk)html+=`<div class="secblock"><h4>Talking points</h4><ul>${s.talk.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+    if(s.rec)html+=`<div class="secblock"><h4>Recommendations</h4><ul>${s.rec.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+    if(s.outline)html+=`<div class="secblock"><h4>Outline</h4><ul>${s.outline.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+    if(s.faqs)html+=`<div class="secblock"><h4>FAQ ideas</h4><ul>${s.faqs.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+  }
+  if(s.type==='code'){
+    html+=`<pre class="code">${s.code}</pre>`;
+  }
+  if(s.scores){
+    html+=`<div class="scores">${s.scores.map(sc=>`<div class="score"><div class="ttl"><span>${sc.k}</span><span class="v">${sc.v}</span></div><div class="tr"><div class="fl" style="width:${sc.v}%;background:${sc.color}"></div></div></div>`).join('')}</div>`;
+  }
+  if(s.table){
+    html+=`<table><thead><tr>${s.table.head.map(h=>`<th class="${['Impr.','Clicks','CTR','Pos.','Volume','Position','Contacts','Cost (US$)','Runs','Score'].includes(h)?'num':''}">${h}</th>`).join('')}</tr></thead><tbody>${s.table.rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${s.table.head[i]&&['Impr.','Clicks','CTR','Pos.','Volume','Position','Contacts','Cost (US$)','Runs','Score'].includes(s.table.head[i])?'num':''}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  }
+  html+=`<div class="note-bar">Prototype output — shows the shape of a live ${tool.name} result. In production this comes from the ${tool.kind==='llm'?`LLM pipeline (deepseek-v4-flash) with ${tool.name==='Pitch Deck Generator'||tool.name==='Proposal Generator'?'HubSpot lead import':'live GA4 / GSC / PSI / Ahrefs data'}`:'live tool API'}.</div>`;
+  rb.innerHTML=html;
+  document.getElementById('result').classList.add('show');
+  historyCount++;
+  const hist=document.getElementById('history');
+  const li=document.createElement('li');
+  const who=document.getElementById('f-clientName')?.value||document.getElementById('f-clientWebsite')?.value||document.getElementById('f-domain')?.value||document.getElementById('f-keyword')?.value||'—';
+  li.innerHTML=`<span class="dot"></span><span class="who"><b>${who||'Untitled run'}</b><span>${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · ${tool.name}</span></span><span class="cost">${tool.kind==='llm'?'$'+ (Math.random()*4+0.4).toFixed(2):''}</span>`;
+  li.addEventListener('click',()=>renderResult(tool.sample));
+  hist.prepend(li);
+  const empty=hist.querySelector('.empty-rail');if(empty)empty.remove();
+}
+/* ---------- hubspot rail ---------- */
+const LEADS=[
+ {n:"Alex Cheung",e:"alex@harbour-retail.com",d:"Harbour Retail Group",s:"hot"},
+ {n:"Marcus Wong",e:"m.wong@zenith-finance.hk",d:"Zenith Finance",s:"hot"},
+ {n:"Sara Lam",e:"sara@bluebay-logistics.com",d:"BlueBay Logistics",s:"warm"},
+ {n:"Jason Ng",e:"jason@acme.com.hk",d:"Acme Ltd",s:"warm"},
+ {n:"Kelly Fu",e:"kelly@seo-packages.info",d:"—",s:"cold"}
+];
+const ll=document.getElementById('lead-list');
+ll.innerHTML=LEADS.map(l=>`<div class="lead-row"><span class="av">${l.n.split(' ').map(w=>w[0]).join('')}</span><div class="info"><b>${l.n}</b><span>${l.e} · ${l.d}</span></div><span class="badge ${l.s}">${l.s}</span></div>`).join('');
+document.getElementById('import-btn').addEventListener('click',()=>{
+  document.getElementById('import-btn').textContent='Importing from HubSpot…';
+  setTimeout(()=>{document.getElementById('import-btn').textContent='✓ 5 leads imported — last 7 days';},600);
+});
+/* history seed */
+const hist=document.getElementById('history');
+hist.innerHTML=`<li><span class="dot"></span><span class="who"><b>${tool.name==='Pitch Deck Generator'?'Acme Ltd':tool.name==='Proposal Generator'?'Acme Ltd':'Harbour Retail Group'}</b><span>${new Date(Date.now()-86400000*2).toLocaleDateString([],{month:'short',day:'numeric'})} · ${tool.name}</span></span><span class="cost">${tool.kind==='llm'?'$1.84':''}</span></li>
+<li><span class="dot"></span><span class="who"><b>${tool.name==='Pitch Deck Generator'?'Zenith Finance':'BlueBay Logistics'}</b><span>${new Date(Date.now()-86400000*5).toLocaleDateString([],{month:'short',day:'numeric'})} · ${tool.name}</span></span><span class="cost">${tool.kind==='llm'?'$0.96':''}</span></li>
+<li class="empty-rail" style="display:none">No saved outputs yet — generate once and it appears here.</li>`;
+hist.querySelectorAll('li:not(.empty-rail)').forEach(li=>li.addEventListener('click',()=>renderResult(tool.sample)));
+</script>
+</body>
+</html>

@@ -16,10 +16,14 @@ import {
 interface MeResponse {
   loggedIn: boolean;
   username: string | null;
+  isAdmin: boolean;
 }
 
 const NAV_LINKS = [
   { href: "/", label: "Overview" },
+  { href: "/toolbox", label: "Toolbox" },
+  { href: "/gateway", label: "Gateway" },
+  { href: "/leads", label: "Leads", adminOnly: true },
 ];
 
 /** Avatar initials: first two first-letters of the username (local part), uppercased. */
@@ -32,7 +36,7 @@ function initials(name: string): string {
 
 export default function NavBar() {
   const [mounted, setMounted] = useState(false);
-  const [me, setMe] = useState<MeResponse>({ loggedIn: false, username: null });
+  const [me, setMe] = useState<MeResponse>({ loggedIn: false, username: null, isAdmin: false });
   const pathname = usePathname();
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export default function NavBar() {
   }, [mounted]);
 
   const isLoggedIn = me.loggedIn;
-  const visibleLinks = NAV_LINKS;
+  const visibleLinks = NAV_LINKS.filter((l) => !l.adminOnly || me.isAdmin);
 
   const linkClass = (href: string) =>
     `px-3.5 py-2 rounded-lg text-[13.5px] font-semibold transition-colors ${
@@ -103,7 +107,7 @@ export default function NavBar() {
                 <button
                   onClick={async () => {
                     await fetch("/api/logout", { method: "POST" });
-                    window.location.href = "/login";
+                    window.location.href = "/toolbox";
                   }}
                   className="mt-3 w-full px-4 py-2 rounded-lg text-[13.5px] font-bold text-white bg-grad-cta shadow-sm hover:brightness-105 cursor-pointer transition-all"
                 >
@@ -115,8 +119,8 @@ export default function NavBar() {
         </>
       ) : (
         <>
-          <Link href="/" className={linkClass("/")}>
-            Overview
+          <Link href="/toolbox" className={linkClass("/toolbox")}>
+            Toolbox
           </Link>
           <Link
             href="/login"

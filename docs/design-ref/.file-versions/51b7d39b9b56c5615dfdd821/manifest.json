@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "fileName": "toolbox.html",
+  "entries": [
+    {
+      "id": "4e929ad0-5083-4ef2-8ea3-311c6b92fee4",
+      "fileName": "toolbox.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1786402434167,
+      "source": "ai",
+      "prompt": "Presentation 會唔會有個更好的名？",
+      "size": 21223,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-4e929ad0-5083-4ef2-8ea3-311c6b92fee4.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "04e302f8-92b6-4dbb-8a78-f3a055968d88",
+      "fileName": "toolbox.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1786403320780,
+      "source": "ai",
+      "prompt": "我需要你 redesign 多一個 tools page: http://localhost:3001/tools/onsite-audit",
+      "size": 21573,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-04e302f8-92b6-4dbb-8a78-f3a055968d88.html",
+      "promptSource": "message"
+    }
+  ]
+}

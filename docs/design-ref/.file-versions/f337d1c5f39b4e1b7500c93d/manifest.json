@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "admin.html",
+  "entries": [
+    {
+      "id": "db22e469-a01b-43fc-9eda-2dea38a04515",
+      "fileName": "admin.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1786402434167,
+      "source": "ai",
+      "prompt": "Presentation 會唔會有個更好的名？",
+      "size": 12063,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-db22e469-a01b-43fc-9eda-2dea38a04515.html",
+      "promptSource": "message"
+    }
+  ]
+}

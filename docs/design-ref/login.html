@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Login — FirstPage HK Toolbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--blue-600);text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.12;color:var(--navy)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;width:100%}
+.topbar{background:var(--navy);color:#fff;font-size:12.5px;letter-spacing:0.02em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:8px;padding-bottom:8px}
+.topbar .regions{display:flex;gap:14px;opacity:.75}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:32px;height:68px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display)}
+.brand .mark{width:38px;height:38px;border-radius:10px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:.08em}
+.brand .name{font-size:16px;font-weight:800;letter-spacing:.04em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:4px;margin-left:auto}
+nav.main a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff;box-shadow:var(--shadow-sm)}
+nav.main a.cta:hover{filter:brightness(1.05)}
+main{flex:1;display:grid;place-items:center;padding:64px 24px;background:
+  radial-gradient(1000px 420px at 85% -10%,oklch(0.62 0.16 250 / 0.10),transparent),
+  radial-gradient(700px 380px at 0% 110%,oklch(0.69 0.20 24 / 0.07),transparent),
+  var(--bg)}
+.login-card{width:100%;max-width:430px;background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-md);padding:40px 38px}
+.login-card .mark{width:56px;height:56px;border-radius:14px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;letter-spacing:.08em;margin-bottom:22px}
+.login-card h1{font-size:26px;font-weight:800}
+.login-card .hint{color:var(--muted);font-size:14px;margin:8px 0 26px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--navy);margin-bottom:7px}
+.field input{width:100%;height:48px;border:1px solid var(--border);border-radius:10px;padding:0 14px;font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--bg);transition:border-color .12s,box-shadow .12s}
+.field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px oklch(0.62 0.16 250 / 0.16)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;border-radius:10px;padding:13px 26px;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,filter .12s ease;min-height:48px;width:100%;background:var(--grad-cta);color:#fff;box-shadow:0 6px 16px oklch(0.62 0.19 22 / 0.30);margin-top:6px}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin-top:22px;font-size:14px;font-weight:600}
+.backlink svg{width:15px;height:15px}
+.demo-note{margin-top:18px;padding:12px 14px;border-radius:10px;background:oklch(0.62 0.16 250 / 0.08);border:1px dashed oklch(0.62 0.16 250 / 0.4);font-size:12.5px;color:var(--blue-600);line-height:1.5}
+.demo-note code{font-family:var(--font-mono);font-weight:700}
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:28px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer strong{color:#fff}
+@media(max-width:600px){
+  .topbar .regions{display:none}
+  .login-card{padding:32px 26px}
+}
+</style>
+</head>
+<body data-od-id="page-login">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Overview</a>
+      <a href="toolbox.html">Toolbox</a>
+      <a class="cta" href="login.html">System Login</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <form class="login-card" id="login-form" data-od-id="login-card">
+    <div class="mark">FP</div>
+    <h1>System View Login</h1>
+    <p class="hint">Sign in to open the full dashboard, toolbox and reporting suite.</p>
+    <div class="field">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" placeholder="firstpage" required autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="••••••••••••" required autocomplete="current-password">
+    </div>
+    <button class="btn" type="submit" id="login-btn">Login</button>
+    <div class="demo-note">Prototype demo — any credentials work. <code>firstpage</code> / <code>firstpage</code> gets you straight in.</div>
+    <a class="backlink" href="toolbox.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Back to Toolbox View</a>
+  </form>
+</main>
+
+<footer>
+  <div class="wrap"><div><strong>FirstPage Hong Kong</strong> — AI &amp; Automation Team</div><div>Led by Glass Chan</div></div>
+</footer>
+
+<script>
+const form=document.getElementById('login-form');
+const btn=document.getElementById('login-btn');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  btn.textContent='Logging in…';
+  btn.style.opacity='.75';
+  setTimeout(()=>{window.location.href='dashboard.html';},450);
+});
+</script>
+</body>
+</html>

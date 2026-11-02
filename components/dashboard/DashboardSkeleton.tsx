@@ -7,7 +7,7 @@
 
 interface ZoneSkeletonProps {
   title: string;
-  /** Tag pill text next to the title. */
+  /** Tag pill text next to the title; omitted when empty (Lead Quality has none). */
   tag?: string;
   /** Render the "Last 30 days" takeaways box (Website/Sales have it, Lead Quality doesn't). */
   takeaways?: boolean;
@@ -18,7 +18,8 @@ interface ZoneSkeletonProps {
 /**
  * Whole-zone skeleton: zone head + 4 KPI cards + big content cards.
  * Renders zone CONTENT only — the owning `<section id=…>` anchor lives on the
- * page outside the Suspense boundary while the report streams in.
+ * page outside the Suspense boundary, so the sticky SectionNav keeps working
+ * while the zone streams in.
  */
 export function ZoneSkeleton({ title, tag, takeaways = true, cards = 3 }: ZoneSkeletonProps) {
   return (
@@ -78,6 +79,23 @@ export function ZoneSkeleton({ title, tag, takeaways = true, cards = 3 }: ZoneSk
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+/** Small skeleton for the AI Suggested Action Plan card (secondary suspense inside each zone). */
+export function AiPlanSkeleton() {
+  return (
+    <div className="mt-4 rounded-[14px] border border-border bg-white shadow-[var(--shadow-sm)] overflow-hidden">
+      <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-border bg-surface/60">
+        <div className="h-4 w-4 rounded-full bg-border animate-pulse" />
+        <div className="h-4 w-52 rounded bg-border animate-pulse" />
+      </div>
+      <div className="px-5 py-4 space-y-3">
+        <div className="h-4 w-3/4 rounded bg-surface animate-pulse" />
+        <div className="h-4 w-1/2 rounded bg-surface animate-pulse" />
+        <div className="h-4 w-2/3 rounded bg-surface animate-pulse" />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Quality — FirstPage HK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.99 0 0);
+  --surface:oklch(0.965 0 0);
+  --fg:oklch(0.24 0.09 266);
+  --muted:oklch(0.50 0 0);
+  --border:oklch(0.91 0 0);
+  --accent:oklch(0.69 0.20 24);
+  --blue:oklch(0.62 0.16 250);
+  --blue-600:oklch(0.50 0.14 254);
+  --navy:oklch(0.24 0.09 266);
+  --green:oklch(0.55 0.14 152);
+  --amber:oklch(0.72 0.15 75);
+  --rose:oklch(0.62 0.20 22);
+  --grad-cta:linear-gradient(224deg,oklch(0.62 0.19 22) 0%,oklch(0.69 0.20 24) 100%);
+  --grad-banner:linear-gradient(225deg,oklch(0.60 0.17 250) 0%,oklch(0.44 0.12 256) 100%);
+  --font-display:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-body:"proxima-nova","Open Sans","Segoe UI",system-ui,sans-serif;
+  --font-mono:"SFMono-Regular",ui-monospace,Menlo,monospace;
+  --shadow-sm:0 1px 2px oklch(0.2 0.05 266 / 0.06),0 1px 3px oklch(0.2 0.05 266 / 0.08);
+  --shadow-md:0 4px 12px oklch(0.2 0.05 266 / 0.10),0 2px 4px oklch(0.2 0.05 266 / 0.06);
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--surface);color:var(--fg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.15;color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.topbar{background:var(--navy);color:#fff;font-size:12px;letter-spacing:0.02em}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:7px;padding-bottom:7px}
+.topbar .regions{display:flex;gap:14px;opacity:.7}
+.topbar a{color:#fff}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display)}
+.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--grad-banner);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.08em}
+.brand .name{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--navy);line-height:1.1}
+.brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-600)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy)}
+nav.main a:hover{background:var(--surface);text-decoration:none}
+nav.main a.on{background:oklch(0.62 0.16 250 / 0.10);color:var(--blue-600)}
+nav.main a.cta{background:var(--grad-cta);color:#fff}
+nav.main a.cta:hover{filter:brightness(1.05)}
+.pagehead{background:var(--grad-banner);color:#fff;padding:34px 0 40px}
+.pagehead .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pagehead h1{color:#fff;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.015em}
+.pagehead .sub{color:oklch(0.93 0.02 250);font-size:14px;margin-top:4px}
+main{padding:30px 0 60px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:22px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px}
+.kpi .lb{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi .val{font-family:var(--font-display);font-size:32px;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin-top:8px;line-height:1}
+.kpi .val small{font-size:17px}
+.kpi .delt{margin-top:7px;font-size:13px;font-weight:700}
+.kpi .delt.up{color:oklch(0.45 0.13 152)}
+.kpi .delt.dn{color:var(--rose)}
+.kpi .delt .hint{font-weight:400;color:var(--muted)}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:22px}
+.card .hd{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.card .hd h3{font-size:16px;font-weight:800}
+.card .hd .src{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hbar-row{display:flex;align-items:center;gap:12px;padding:6px 0}
+.hbar-row .nm{width:190px;flex-shrink:0;font-size:13px;font-weight:600;color:var(--navy)}
+.hbar-row .track{flex:1;height:20px;background:var(--surface);border-radius:6px;overflow:hidden}
+.hbar-row .fill{height:100%;border-radius:6px}
+.hbar-row .vl{width:54px;flex-shrink:0;font-family:var(--font-mono);font-size:13px;color:var(--navy);font-weight:700;text-align:right}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1.5px solid var(--border)}
+td{padding:10px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--font-mono)}
+td b{color:var(--navy)}
+.badge{font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:3px 9px;border-radius:999px}
+.badge.spam{background:oklch(0.62 0.20 22 / 0.1);color:var(--rose)}
+.badge.ok{background:oklch(0.55 0.14 152 / 0.13);color:oklch(0.42 0.13 152)}
+.takeaways{background:oklch(0.62 0.20 22 / 0.06);border:1px solid oklch(0.62 0.20 22 / 0.22);border-radius:var(--radius);padding:15px 19px;margin-bottom:22px;font-size:14px;color:var(--fg)}
+.takeaways b{color:var(--navy)}
+footer{background:var(--navy);color:oklch(0.85 0.02 250);padding:28px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer strong{color:#fff}
+@media(max-width:900px){.panels{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .topbar .regions{display:none}
+  nav.main a{padding:7px 9px;font-size:12.5px}
+  nav.main a:nth-child(n+5){display:none}
+  header.nav .wrap{gap:10px}
+  .brand .sub{display:none}
+  .hbar-row .nm{width:130px}
+}
+</style>
+</head>
+<body data-od-id="page-admin">
+
+<div class="topbar">
+  <div class="wrap"><div class="regions"><span>HONG KONG</span><a href="#null">AUSTRALIA</a><a href="#null">SINGAPORE</a></div><div>+852 2356 3200</div></div>
+</div>
+
+<header class="nav" data-od-id="nav-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">FP</span>
+      <span><span class="name">FIRSTPAGE HK</span><br><span class="sub">AI &amp; Automation Toolbox</span></span>
+    </a>
+    <nav class="main">
+      <a href="dashboard.html">Overview</a>
+      <a href="toolbox.html">Toolbox</a>
+      <a href="usage.html">Usage</a>
+      <a class="on" href="admin.html">Lead Quality</a>
+      <a class="cta" href="login.html">Login</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pagehead" data-od-id="page-head">
+  <div class="wrap">
+    <div>
+      <h1>Lead Quality Report</h1>
+      <div class="sub">Last 30 days · HubSpot contacts, run through the spam heuristics</div>
+    </div>
+    <a class="btn" href="tools.html?slug=spam-report" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:14px;background:var(--grad-cta);color:#fff;border-radius:10px;padding:12px 22px;min-height:44px">Run live spam report →</a>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="takeaways" data-od-id="takeaways">
+      <b>Headline:</b> 1,284 of 4,012 inbound contacts (31.8%) are spam. Spam rate is <b>down 1.2pp</b> this period. <b>4 real leads were misjudged</b> as spam — follow them up today. Top junk source: <b>webleads.co</b> (212 contacts).
+    </div>
+
+    <div class="cgrid" data-od-id="kpi-row">
+      <div class="kpi"><div class="lb">Total contacts</div><div class="val">4,012</div><div class="delt up">▲ 8.4% <span class="hint">vs prev 30d</span></div></div>
+      <div class="kpi"><div class="lb">Real leads</div><div class="val">2,728</div><div class="delt up">▲ 10.1% <span class="hint">spam-filtered</span></div></div>
+      <div class="kpi"><div class="lb">Spam</div><div class="val">1,284</div><div class="delt dn">▲ 4.6% <span class="hint">junk inflow</span></div></div>
+      <div class="kpi"><div class="lb">Spam rate</div><div class="val">31.8<small>%</small></div><div class="delt up">▼ 1.2pp <span class="hint">improvement</span></div></div>
+    </div>
+
+    <div class="panels" data-od-id="panels">
+      <div class="card" data-od-id="card-spam-reasons">
+        <div class="hd"><h3>Why contacts are spam</h3><span class="src">share of flagged</span></div>
+        <div class="hbar-row"><span class="nm">No website</span><div class="track"><div class="fill" style="width:29%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">29%</span></div>
+        <div class="hbar-row"><span class="nm">Disposable email</span><div class="track"><div class="fill" style="width:24%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">24%</span></div>
+        <div class="hbar-row"><span class="nm">Email pasted as website</span><div class="track"><div class="fill" style="width:18%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">18%</span></div>
+        <div class="hbar-row"><span class="nm">Numeric host (phone no.)</span><div class="track"><div class="fill" style="width:11%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">11%</span></div>
+        <div class="hbar-row"><span class="nm">FirstPage's own site</span><div class="track"><div class="fill" style="width:7%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">7%</span></div>
+        <div class="hbar-row"><span class="nm">Social site as website</span><div class="track"><div class="fill" style="width:6%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">6%</span></div>
+        <div class="hbar-row"><span class="nm">Other</span><div class="track"><div class="fill" style="width:5%;background:oklch(0.62 0.20 22 / 0.8)"></div></div><span class="vl">5%</span></div>
+      </div>
+      <div class="card" data-od-id="card-worst-domains">
+        <div class="hd"><h3>Worst source domains</h3><span class="src">by contacts</span></div>
+        <table>
+          <thead><tr><th>Domain</th><th class="num">Contacts</th><th class="num">Share</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td>webleads.co</td><td class="num">212</td><td class="num">16.5%</td><td><span class="badge spam">SPAM</span></td></tr>
+            <tr><td>seo-packages.info</td><td class="num">164</td><td class="num">12.8%</td><td><span class="badge spam">SPAM</span></td></tr>
+            <tr><td>leads4u.biz</td><td class="num">128</td><td class="num">10.0%</td><td><span class="badge spam">SPAM</span></td></tr>
+            <tr><td>rankboost.io</td><td class="num">96</td><td class="num">7.5%</td><td><span class="badge spam">SPAM</span></td></tr>
+            <tr><td>growth-hacks.net</td><td class="num">74</td><td class="num">5.8%</td><td><span class="badge spam">SPAM</span></td></tr>
+            <tr><td>harbour-retail.com</td><td class="num">0</td><td class="num">—</td><td><span class="badge ok">REAL</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer data-od-id="page-footer">
+  <div class="wrap">
+    <div><strong>FirstPage Hong Kong</strong> — AI &amp; Automation Team · Led by Glass Chan</div>
+    <div><a href="dashboard.html" style="color:#fff">Dashboard</a> · <a href="toolbox.html" style="color:#fff">Toolbox</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

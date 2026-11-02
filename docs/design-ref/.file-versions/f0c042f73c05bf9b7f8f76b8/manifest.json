@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "onsite-audit.html",
+  "entries": [
+    {
+      "id": "0fa39e5f-9ac8-46c4-94f0-f4b884e2c393",
+      "fileName": "onsite-audit.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1786403320778,
+      "source": "ai",
+      "prompt": "我需要你 redesign 多一個 tools page: http://localhost:3001/tools/onsite-audit",
+      "size": 48034,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-0fa39e5f-9ac8-46c4-94f0-f4b884e2c393.html",
+      "promptSource": "message"
+    }
+  ]
+}
